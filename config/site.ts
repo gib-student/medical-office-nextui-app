@@ -1,66 +1,50 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + NextUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Four Seasons Medical",
+  description: "Good heath begins with human care.",
   navItems: [
     {
-      label: "Home",
-      href: "/",
+      label: "MyChart Login",
+      href: "/mychartlogin"
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Pay a Bill",
+      href: "/payabill",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Careers",
+      href: "/careers",
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "Donate",
+      href: "/donate",
     },
     {
-      label: "About",
-      href: "/about",
-    },
-    {
-      label: "Learning",
-      href: "/learning"
+      label: "Contact Us",
+      href: "/contactus",
     },
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Find a Doctor",
+      href: "/findadoctor",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Services",
+      href: "/services",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "Locations",
+      href: "/locations",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "Patients & Visitors",
+      href: "/patientsandvisitors",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "Resources",
+      href: "/resources",
     },
   ],
   links: {
