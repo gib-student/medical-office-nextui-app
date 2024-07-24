@@ -51,13 +51,12 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
-      {/* Logo and Links*/}
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         {/* Logo */}
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">Four Seasons</p>
           </NextLink>
         </NavbarBrand>
         {/* List of links for large views */}
