@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -7,7 +8,6 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
@@ -16,15 +16,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+import { SearchIcon, Logo } from "@/components/icons";
 import { Divider } from "@nextui-org/divider";
 
 export const Navbar = () => {
@@ -86,8 +78,8 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
       </NavbarContent>
 
-      {/* Discord icon, theme switch and navbar menu toggle for small views*/}
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+      {/* Navbar menu toggle for small views*/}
+      <NavbarContent className="sm:hidden basis-1" justify="end">
         <NavbarMenuToggle />
       </NavbarContent>
 
