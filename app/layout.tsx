@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import { url } from "inspector";
 
 export const metadata: Metadata = {
   title: {
@@ -42,11 +43,9 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-          <div className="relative flex flex-col h-screen">
+          <div className="" style={{ backgroundImage: url() }}>
             <Navbar />
-            <main className="container mx-auto max-w-7xl px-0 flex-grow">
-              {children}
-            </main>
+            <main className="">{children}</main>
             <footer className=""></footer>
           </div>
         </Providers>
