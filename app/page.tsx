@@ -1,16 +1,9 @@
 "use client";
 import { Button, ButtonGroup } from "@nextui-org/button";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownTrigger,
-  DropdownMenu,
-} from "@nextui-org/dropdown";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import { ChevronDownIcon } from "@/components/ChevronDownIcon";
 import { Image } from "@nextui-org/image";
 import { PT_Serif } from "next/font/google";
-import { useState, useMemo } from "react";
+import SecondNav from "@/components/secondNav";
 
 const pt_serif = PT_Serif({
   weight: ["400", "700"],
@@ -19,16 +12,6 @@ const pt_serif = PT_Serif({
 const h1Style = `${"text-4xl font-bold px-3"} + ${pt_serif.className}`;
 
 export default function Home() {
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["for_patients"]));
-  const selectedValue = useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
-  );
-  const secondaryNavDiv =
-    "my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300";
-  const secondaryNavButton =
-    "p-11 rounded-lg relative capitalize text-lg font-bold text-blue-700";
-
   return (
     <>
       {/* hero */}
@@ -63,68 +46,7 @@ export default function Home() {
         </Button>
       </div>
       {/* Secondary nav */}
-      <div className="border-slate-300 border-1 rounded-lg m-5 p-2 bg-white mt-[-8vh] gap-4">
-        <div className="flex justify-center">
-          <Dropdown>
-            <div className="border-1 mt-2 mx-2 rounded-lg border-gray-700 w-full">
-              <DropdownTrigger>
-                <Button
-                  variant="light"
-                  className="p-8 rounded-lg relative capitalize text-xl"
-                  fullWidth
-                  style={{ justifyContent: "flex-start" }}
-                >
-                  {selectedValue}
-                  <div className="absolute right-6">
-                    <ChevronDownIcon />
-                  </div>
-                </Button>
-              </DropdownTrigger>
-            </div>
-            <DropdownMenu
-              aria-label="Single selection example"
-              variant="flat"
-              disallowEmptySelection
-              selectionMode="single"
-              selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
-              defaultSelectedKeys="for_patients"
-              className="text-md"
-            >
-              <DropdownItem key="for_patients">For Patients</DropdownItem>
-              <DropdownItem key="for_medical_professionals">
-                For Medical Professionals
-              </DropdownItem>
-              <DropdownItem key="for_team_members">
-                For Team Members
-              </DropdownItem>
-              <DropdownItem key="for_the_community">
-                For the Community
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
-        <div className={secondaryNavDiv}>
-          <Button variant="light" className={secondaryNavButton} fullWidth>
-            Make an Appointment
-          </Button>
-        </div>
-        <div className={secondaryNavDiv}>
-          <Button variant="light" className={secondaryNavButton} fullWidth>
-            MyChart Patient Portal
-          </Button>
-        </div>
-        <div className={secondaryNavDiv}>
-          <Button variant="light" className={secondaryNavButton} fullWidth>
-            Pay a Bill
-          </Button>
-        </div>
-        <div className={secondaryNavDiv}>
-          <Button variant="light" className={secondaryNavButton} fullWidth>
-            Services and Conditions
-          </Button>
-        </div>
-      </div>
+      <SecondNav />
       <h1
         className={`text-blue-1000 text-2xl font-semibold text-center my-11 ${pt_serif.className}`}
       >
