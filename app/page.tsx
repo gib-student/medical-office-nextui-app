@@ -8,7 +8,6 @@ import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
 import { url } from "inspector";
-import background from "../public/family-practice.jpg";
 import { Image } from "@nextui-org/image";
 import { PT_Serif } from "next/font/google";
 import { Button } from "@nextui-org/button";
@@ -42,7 +41,7 @@ export default function Home() {
         <Image
           className="z-0"
           alt="Hero photo"
-          src="https://github.com/gib-student/medical-office-nextui-app/blob/hero/public/family-practice-sm.jpg?raw=true"
+          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej"
           radius="none"
         />
         <div className="h-64 w-full bottom-0 absolute z-10 bg-gradient-to-t from-black" />
