@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import FeaturedServicesCard from "./FeaturedServicesCard";
 import { PT_Serif } from "next/font/google";
 
 const pt_serif = PT_Serif({
@@ -14,7 +14,7 @@ export default function FeaturedServices() {
       >
         Featured Services
       </h1>
-      <Card className="flex relative border-1 border-gray-100 p-7 mx-5"></Card>
+      <FeaturedServicesCard />
     </>
   );
 }

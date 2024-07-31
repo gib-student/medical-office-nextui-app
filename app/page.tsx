@@ -1,6 +1,6 @@
 "use client";
-import FeaturedServices from "@/components/FeaturedServices";
-import Hero from "@/components/Hero";
+import FeaturedServices from "@/components/Home/FeaturedServices";
+import Hero from "@/components/Home/Hero";
 import SecondNav from "@/components/SecondNav";
 
 export default function Home() {
