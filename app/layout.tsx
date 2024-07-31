@@ -8,7 +8,6 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { url } from "inspector";
-import background from "../public/family-practice.jpg";
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <head />
+      <head></head>
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
