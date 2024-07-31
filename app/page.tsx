@@ -41,7 +41,7 @@ export default function Home() {
         <Image
           className="z-0"
           alt="Hero photo"
-          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej"
+          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej∑"
           radius="none"
         />
         <div className="h-64 w-full bottom-0 absolute z-10 bg-gradient-to-t from-black" />
