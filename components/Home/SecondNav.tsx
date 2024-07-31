@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button } from "@nextui-org/button";
 import { ChevronDownIcon } from "@/components/Home/ChevronDownIcon";
 import {
   Dropdown,
