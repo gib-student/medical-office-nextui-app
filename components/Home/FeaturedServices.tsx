@@ -1,20 +1,25 @@
 import FeaturedServicesCard from "./FeaturedServicesCard";
-import { PT_Serif } from "next/font/google";
-
-const pt_serif = PT_Serif({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { CardData } from "./CardStrings";
+import { pt_serif_font, Styles } from "../styles";
 
 export default function FeaturedServices() {
   return (
     <>
-      <h1
-        className={`text-blue-1000 text-2xl font-semibold text-center my-11 ${pt_serif.className}`}
+      <h2
+        className={`${Styles.subheading} text-center my-11 ${pt_serif_font.className}`}
       >
         Featured Services
-      </h1>
-      <FeaturedServicesCard />
+      </h2>
+      {CardData.map((card) => (
+        <FeaturedServicesCard
+          key={card.id}
+          title={card.title}
+          subtitle={card.subtitle}
+          href={card.href}
+          photo={card.photo}
+          description={card.desc}
+        />
+      ))}
     </>
   );
 }

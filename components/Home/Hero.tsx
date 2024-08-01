@@ -1,14 +1,9 @@
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
-import { PT_Serif } from "next/font/google";
-
-const pt_serif = PT_Serif({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { pt_serif_font } from "../styles";
 
 export default function Hero() {
-  const h1Style = `${"text-4xl font-bold px-3"} + ${pt_serif.className}`;
+  const h1Style = `${"text-4xl font-bold px-3"} + ${pt_serif_font.className}`;
   return (
     <>
       <div className="relative">
