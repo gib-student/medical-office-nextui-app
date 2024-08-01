@@ -29,7 +29,7 @@ export default function Hero() {
         <h1 className={`${h1Style} ${"text-yellow-400"}`}>with</h1>
         <h1 className={`${h1Style} ${"text-white mb-4"}`}>truly human care</h1>
         <h4 className="px-3 mb-5">
-          We at Four Seasons Health listen to your challenges and consider your
+          We at Four Seasons Medical listen to your challenges and consider your
           true needs to help you enjoy your highest quality of life.
         </h4>
         <Button
