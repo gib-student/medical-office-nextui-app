@@ -16,10 +16,10 @@ export default function SecondNav() {
     [selectedKeys]
   );
   const buttonStrings = [
-    "Make an Appointment",
-    "MyChart Patient Portal",
-    "Pay a Bill",
-    "Services and Conditions",
+    { id: 1, name: "Make an Appointment" },
+    { id: 2, name: "MyChart Patient Portal" },
+    { id: 3, name: "Pay a Bill" },
+    { id: 4, name: "Services and Conditions" },
   ];
 
   return (
@@ -62,14 +62,14 @@ export default function SecondNav() {
           </DropdownMenu>
         </Dropdown>
       </div>
-      {buttonStrings.map((text) => (
-        <div className={Styles.secondaryNavDiv}>
+      {buttonStrings.map((item) => (
+        <div className={Styles.secondaryNavDiv} key={item.id}>
           <Button
             variant="light"
             className={Styles.secondaryNavButton}
             fullWidth
           >
-            {text}
+            {item.name}
           </Button>
         </div>
       ))}

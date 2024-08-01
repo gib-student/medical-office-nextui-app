@@ -12,4 +12,5 @@ export const Styles = {
     "my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300",
     secondaryNavButton:
     "p-11 rounded-lg relative capitalize text-lg font-bold text-blue-700",
+    cardTitle: "text-blue-1000 text-lg font-semibold"
 }

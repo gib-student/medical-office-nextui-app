@@ -10,16 +10,19 @@ export default function FeaturedServices() {
       >
         Featured Services
       </h2>
-      {CardData.map((card) => (
-        <FeaturedServicesCard
-          key={card.id}
-          title={card.title}
-          subtitle={card.subtitle}
-          href={card.href}
-          photo={card.photo}
-          description={card.desc}
-        />
-      ))}
+      <div className="">
+        {CardData.map((card) => (
+          <div className=" mb-4 flex-col gap-4" key={card.id}>
+            <FeaturedServicesCard
+              title={card.title}
+              subtitle={card.subtitle}
+              href={card.href}
+              src={card.src}
+              description={card.desc}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 }

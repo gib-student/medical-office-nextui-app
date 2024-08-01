@@ -1,11 +1,13 @@
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
+import { Link } from "@nextui-org/link";
+import { pt_serif_font, Styles } from "../styles";
 
 interface Props {
   title: string;
   subtitle: string;
   href: string;
-  photo: string;
+  src: string;
   description: string;
 }
 
@@ -13,14 +15,22 @@ export default function FeaturedServicesCard({
   title,
   subtitle,
   href,
-  photo,
+  src,
   description,
 }: Props) {
   return (
     <>
-      <Card className="flex relative border-1 border-gray-100 p-7 mx-5">
-        <Image src={photo} alt="Card Image" className="absolute left-4"></Image>
-        <h2 className=""></h2>
+      <Card className="relative border-1 border-gray-100 p-3 mx-5">
+        <div className="flex justify-start">
+          <Image src={src} alt="Card Image" className="" width={100}></Image>
+          {/* Headings */}
+          <div className={`ml-4`}>
+            <h2 className={`${pt_serif_font.className} ${Styles.cardTitle}`}>
+              {title}
+            </h2>
+            <Link href={href}>{subtitle}</Link>
+          </div>
+        </div>
       </Card>
     </>
   );
