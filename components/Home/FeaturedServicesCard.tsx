@@ -47,7 +47,7 @@ export default function FeaturedServicesCard({
               isIconOnly
               onPress={toggleDescVisibility}
             >
-              {/* <WhiteDownArrow /> */}
+              <WhiteDownArrow />
             </Button>
           </div>
         </div>
