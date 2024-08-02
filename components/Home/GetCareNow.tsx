@@ -1,7 +1,7 @@
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
-import { pt_serif_font, Styles } from "../styles";
+import { pt_serif_font } from "../styles";
 
 export default function GetCareNow() {
   return (
@@ -22,7 +22,7 @@ export default function GetCareNow() {
           We provide the tools and knowledge to keep yourself healthy and living
           life to the fullest with our extensive network of physicians, nurses,
           clinics, and hospitals, including Bethesda, McCullough-Hyde, and Good
-          Samaritan. Whether it's an emergency or a routine checkup—or any
+          Samaritan. Whether it&apos;'s an emergency or a routine checkup—or any
           moment in between—we provide quality care, comprehensive health
           services, and peace of mind for you and your loved ones in Hamilton,
           Butler, Clinton, and Warren counties in southwest Ohio, and across the

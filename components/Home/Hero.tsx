@@ -4,6 +4,7 @@ import { pt_serif_font } from "../styles";
 
 export default function Hero() {
   const h1Style = `${"text-4xl font-bold px-3"} + ${pt_serif_font.className}`;
+
   return (
     <>
       <div className="relative">
@@ -29,9 +30,9 @@ export default function Hero() {
         </h4>
         <Button
           className="ml-3 mb-24 text-xl bg-gradient-to-tr from-blue-800 to-cyan-500"
-          size="lg"
-          radius="md"
           color="primary"
+          radius="md"
+          size="lg"
         >
           Find a Doctor
         </Button>

@@ -1,4 +1,7 @@
 "use client";
+import clsx from "clsx";
+import { Divider } from "@nextui-org/divider";
+import { Input } from "@nextui-org/input";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -10,14 +13,11 @@ import {
 } from "@nextui-org/navbar";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
-import NextLink from "next/link";
-import clsx from "clsx";
 
+import NextLink from "next/link";
 import { siteConfig } from "@/config/site";
 import { SearchIcon, Logo } from "@/components/icons";
-import { Divider } from "@nextui-org/divider";
 
 export const Navbar = () => {
   const searchInput = (
@@ -92,16 +92,16 @@ export const Navbar = () => {
               <Link color="foreground" href="#" size="lg" className="mb-5">
                 {item.label}
               </Link>
-              <Divider></Divider>
+              <Divider />
             </NavbarMenuItem>
           ))}
           {siteConfig.navItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
+                className={index === 0 ? "mt-3" : ""}
                 color="foreground"
                 href="#"
                 size="md"
-                className={index === 0 ? "mt-3" : ""}
               >
                 <strong>{item.label}</strong>
               </Link>

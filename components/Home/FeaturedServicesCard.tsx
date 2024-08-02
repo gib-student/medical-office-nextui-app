@@ -1,12 +1,11 @@
+import { useState } from "react";
 import { Button } from "@nextui-org/button";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card } from "@nextui-org/card";
+import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 import { pt_serif_font, Styles } from "../styles";
-import { ChevronDownIcon } from "./ChevronDownIcon";
 import { WhiteDownArrow } from "./WhiteDownArrow";
-import { Divider } from "@nextui-org/divider";
-import { useState } from "react";
 
 interface Props {
   title: string;
@@ -32,7 +31,7 @@ export default function FeaturedServicesCard({
     <>
       <Card className="relative border-1 border-gray-100 p-3 mx-5">
         <div className="flex justify-start">
-          <Image src={src} alt="Card Image" className="" width={100}></Image>
+          <Image src={src} alt="Card Image" width={100} />
           {/* Headings */}
           <div className={`ml-2`}>
             <h2 className={`${pt_serif_font.className} ${Styles.cardTitle}`}>
@@ -42,9 +41,9 @@ export default function FeaturedServicesCard({
           </div>
           <div className="w-0.5">
             <Button
+              isIconOnly
               className="absolute right-4 bg-blue-900"
               radius="full"
-              isIconOnly
               onPress={toggleDescVisibility}
             >
               <WhiteDownArrow />

@@ -12,13 +12,13 @@ export default function FeaturedServices() {
       </h2>
       <div className="">
         {CardData.map((card) => (
-          <div className=" mb-4 flex-col gap-4" key={card.id}>
+          <div className="key={card.id} mb-4 flex-col gap-4">
             <FeaturedServicesCard
-              title={card.title}
-              subtitle={card.subtitle}
-              href={card.href}
-              src={card.src}
               description={card.desc}
+              href={card.href}
+              subtitle={card.subtitle}
+              src={card.src}
+              title={card.title}
             />
           </div>
         ))}

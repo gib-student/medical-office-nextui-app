@@ -1,11 +1,10 @@
 import { Image } from "@nextui-org/image";
-import { pt_serif_font, Styles } from "../styles";
 import { Link } from "@nextui-org/link";
 
 export default function ServicesAndSupportInfo() {
   return (
     <div className="mx-4 mt-10">
-      <Image src="https://placehold.co/600x600"></Image>
+      <Image src="https://placehold.co/600x600" />
       <div>
         <h3 className={`$""`}>
           Medical and holistic services and support to take control of your
@@ -19,8 +18,9 @@ export default function ServicesAndSupportInfo() {
           for exercise, rehabilitation, disease prevention and health education.
           Open to the community and conveniently located in the northeast suburb
           of Cincinnati, Ohio in Montgomery at I71 and Pfeiffer Road, the Four
-          Seasons Fitness & Health Pavilion is Ohio's first certified medical
-          fitness facility recognized by the Medical Fitness Association (MFA).
+          Seasons Fitness & Health Pavilion is Ohio&apos;'s first certified
+          medical fitness facility recognized by the Medical Fitness Association
+          (MFA).
         </p>
         <Link>Four Seasons Fitness and Health Pavilion</Link>
         <h4>Health Resources and Support for You and Your Family</h4>

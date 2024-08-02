@@ -1,13 +1,16 @@
 import { Button } from "@nextui-org/button";
-import { ChevronDownIcon } from "@/components/Home/ChevronDownIcon";
 import {
   Dropdown,
   DropdownItem,
   DropdownTrigger,
   DropdownMenu,
 } from "@nextui-org/dropdown";
+
 import { useState, useMemo } from "react";
+
 import { SecondNavIcon } from "../icons";
+
+import { ChevronDownIcon } from "@/components/Home/ChevronDownIcon";
 
 export default function SecondNav() {
   const [selectedKey, setSelectedKeys] = useState("for_patients");
@@ -20,6 +23,7 @@ export default function SecondNav() {
     if (typeof arg === "object") {
       const newKey = Array.from(arg).join(", ").replaceAll("_", " ");
       setSelectedKeys(newKey);
+
       return;
     }
     setSelectedKeys(arg);
@@ -66,10 +70,10 @@ export default function SecondNav() {
           <div className="border-1 mt-2 mx-2 rounded-lg border-gray-700 w-full">
             <DropdownTrigger>
               <Button
-                variant="light"
-                className="p-8 rounded-lg relative capitalize text-xl"
                 fullWidth
+                className="p-8 rounded-lg relative capitalize text-xl"
                 style={{ justifyContent: "flex-start" }}
+                variant="light"
               >
                 {selectedValue}
                 <div className="absolute right-6">
@@ -79,14 +83,14 @@ export default function SecondNav() {
             </DropdownTrigger>
           </div>
           <DropdownMenu
+            onSelectionChange={selectionChanged}
             aria-label="Second Nav Dropdown"
-            variant="flat"
+            className="text-md"
+            defaultSelectedKeys="for_patients"
             disallowEmptySelection
             selectionMode="single"
             selectedKeys={selectedKey}
-            onSelectionChange={selectionChanged}
-            defaultSelectedKeys="for_patients"
-            className="text-md"
+            variant="flat"
           >
             <DropdownItem key="for_patients">For Patients</DropdownItem>
             <DropdownItem key="for_medical_professionals">
@@ -101,13 +105,13 @@ export default function SecondNav() {
       </div>
       {buttonList.map((item) => (
         <div
-          className={"my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300"}
           key={item.id}
+          className={"my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300"}
         >
           <Button
-            variant="light"
-            className="p-11 rounded-lg relative capitalize text-md font-bold text-blue-700"
             fullWidth
+            className="p-11 rounded-lg relative capitalize text-md font-bold text-blue-700"
+            variant="light"
           >
             <SecondNavIcon iconName={item.id.toString()} />
             <p>{item.name}</p>
