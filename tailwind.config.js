@@ -1,4 +1,5 @@
 import {colors, nextui} from '@nextui-org/theme'
+import { plugin } from 'postcss'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,8 +10,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-      }
     },
   },
   darkMode: "class",
