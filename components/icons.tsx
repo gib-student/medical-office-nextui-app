@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Image } from "@nextui-org/image";
+
 import { IconSvgProps } from "@/types";
 
 export const Logo = () => {

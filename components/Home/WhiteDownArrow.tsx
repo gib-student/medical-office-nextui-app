@@ -4,8 +4,8 @@ export const WhiteDownArrow = () => (
     id="Layer_1"
     version="1.1"
     viewBox="0 0 330 330"
-    xmlns="http://www.w3.org/2000/svg"
     width="15px"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <g id="SVGRepo_bgCarrier" />
     <g id="SVGRepo_iconCarrier">

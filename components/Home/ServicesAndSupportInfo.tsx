@@ -18,9 +18,8 @@ export default function ServicesAndSupportInfo() {
           for exercise, rehabilitation, disease prevention and health education.
           Open to the community and conveniently located in the northeast suburb
           of Cincinnati, Ohio in Montgomery at I71 and Pfeiffer Road, the Four
-          Seasons Fitness & Health Pavilion is Ohio&apos;'s first certified
-          medical fitness facility recognized by the Medical Fitness Association
-          (MFA).
+          Seasons Fitness & Health Pavilion is Ohios first certified medical
+          fitness facility recognized by the Medical Fitness Association (MFA).
         </p>
         <Link>Four Seasons Fitness and Health Pavilion</Link>
         <h4>Health Resources and Support for You and Your Family</h4>
