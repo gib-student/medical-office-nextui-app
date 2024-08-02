@@ -7,6 +7,7 @@ import {
   DropdownMenu,
 } from "@nextui-org/dropdown";
 import { useState, useMemo } from "react";
+import { Styles } from "../styles";
 
 export default function SecondNav() {
   const [selectedKeys, setSelectedKeys] = useState(new Set(["for_patients"]));
@@ -14,13 +15,15 @@ export default function SecondNav() {
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
-  const secondaryNavDiv =
-    "my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300";
-  const secondaryNavButton =
-    "p-11 rounded-lg relative capitalize text-lg font-bold text-blue-700";
+  const buttonStrings = [
+    { id: 1, name: "Make an Appointment" },
+    { id: 2, name: "MyChart Patient Portal" },
+    { id: 3, name: "Pay a Bill" },
+    { id: 4, name: "Services and Conditions" },
+  ];
 
   return (
-    <div className="border-slate-300 border-1 rounded-lg m-5 p-2 bg-white mt-[-8vh] gap-4">
+    <div className="border-slate-300 border-1 rounded-lg m-5 p-2 bg-white mt-[-8vh]">
       <div className="flex justify-center">
         <Dropdown>
           <div className="border-1 mt-2 mx-2 rounded-lg border-gray-700 w-full">
@@ -59,26 +62,17 @@ export default function SecondNav() {
           </DropdownMenu>
         </Dropdown>
       </div>
-      <div className={secondaryNavDiv}>
-        <Button variant="light" className={secondaryNavButton} fullWidth>
-          Make an Appointment
-        </Button>
-      </div>
-      <div className={secondaryNavDiv}>
-        <Button variant="light" className={secondaryNavButton} fullWidth>
-          MyChart Patient Portal
-        </Button>
-      </div>
-      <div className={secondaryNavDiv}>
-        <Button variant="light" className={secondaryNavButton} fullWidth>
-          Pay a Bill
-        </Button>
-      </div>
-      <div className={secondaryNavDiv}>
-        <Button variant="light" className={secondaryNavButton} fullWidth>
-          Services and Conditions
-        </Button>
-      </div>
+      {buttonStrings.map((item) => (
+        <div className={Styles.secondaryNavDiv} key={item.id}>
+          <Button
+            variant="light"
+            className={Styles.secondaryNavButton}
+            fullWidth
+          >
+            {item.name}
+          </Button>
+        </div>
+      ))}
     </div>
   );
 }
