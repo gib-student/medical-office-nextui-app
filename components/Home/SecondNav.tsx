@@ -7,7 +7,7 @@ import {
   DropdownMenu,
 } from "@nextui-org/dropdown";
 import { useState, useMemo } from "react";
-import { Styles } from "../styles";
+import { SecondNavIcon } from "../icons";
 
 export default function SecondNav() {
   const [selectedKey, setSelectedKeys] = useState("for_patients");
@@ -18,39 +18,36 @@ export default function SecondNav() {
 
   const selectionChanged = (arg: any) => {
     if (typeof arg === "object") {
-      let print = Array.from(arg).join(", ").replaceAll("_", " ");
-
-      console.log(print);
-      // console.log(typeof arg);
-      setSelectedKeys(print);
+      const newKey = Array.from(arg).join(", ").replaceAll("_", " ");
+      setSelectedKeys(newKey);
       return;
     }
     setSelectedKeys(arg);
   };
 
   const for_patients_Obj = [
-    { id: 0, name: "Make an Appointment", icon: "" },
-    { id: 1, name: "MyChart Patient Portal", icon: "" },
-    { id: 2, name: "Pay a Bill", icon: "" },
-    { id: 3, name: "Services and Conditions", icon: "" },
+    { id: 0, name: "Make an Appointment" },
+    { id: 1, name: "MyChart Patient Portal" },
+    { id: 2, name: "Pay a Bill", icon: "pay_a_bill" },
+    { id: 3, name: "Services and Conditions" },
   ];
   const for_medical_professionals_Obj = [
-    { id: 0, name: "Transfer a Patient", icon: "" },
-    { id: 1, name: "Continuing Medical Education", icon: "" },
-    { id: 2, name: "Careers", icon: "" },
-    { id: 3, name: "Research and Education", icon: "" },
+    { id: 4, name: "Transfer a Patient" },
+    { id: 5, name: "Continuing Education" },
+    { id: 6, name: "Careers" },
+    { id: 7, name: "Research & Education" },
   ];
   const for_team_members_Obj = [
-    { id: 0, name: "Team Member Resources", icon: "" },
-    { id: 1, name: "Physician Access", icon: "" },
-    { id: 2, name: "Shop TriHealth Merchandise", icon: "" },
-    { id: 3, name: "Current Job Listings", icon: "" },
+    { id: 8, name: "Employment Resources" },
+    { id: 9, name: "Physician Access" },
+    { id: 10, name: "Shop Merchandise" },
+    { id: 11, name: "Current Job Listings" },
   ];
   const for_the_community_Obj = [
-    { id: 0, name: "Classes and Events", icon: "" },
-    { id: 1, name: "Health and Fitness Pavilion", icon: "" },
-    { id: 2, name: "TriHealth Corporate Health", icon: "" },
-    { id: 3, name: "TriHealth Foundation", icon: "" },
+    { id: 12, name: "Classes and Events" },
+    { id: 13, name: "Health & Fitness Pavilion" },
+    { id: 14, name: "Corporate Health" },
+    { id: 15, name: "TriHealth Foundation" },
   ];
 
   const buttonList =
@@ -103,13 +100,17 @@ export default function SecondNav() {
         </Dropdown>
       </div>
       {buttonList.map((item) => (
-        <div className={Styles.secondaryNavDiv} key={item.id}>
+        <div
+          className={"my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300"}
+          key={item.id}
+        >
           <Button
             variant="light"
-            className={Styles.secondaryNavButton}
+            className="p-11 rounded-lg relative capitalize text-md font-bold text-blue-700"
             fullWidth
           >
-            {item.name}
+            <SecondNavIcon iconName={item.id.toString()} />
+            <p>{item.name}</p>
           </Button>
         </div>
       ))}

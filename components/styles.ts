@@ -8,9 +8,5 @@ export const pt_serif_font = PT_Serif({
 
 export const Styles = {
     subheading: "text-blue-900 text-2xl font-semibold",
-    secondaryNavDiv:
-    "my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300",
-    secondaryNavButton:
-    "p-11 rounded-lg relative capitalize text-md font-bold text-blue-700",
     cardTitle: "text-blue-900 text-lg font-semibold"
 }

@@ -5,7 +5,7 @@ import { pt_serif_font, Styles } from "../styles";
 
 export default function GetCareNow() {
   return (
-    <div className="mt-9 mb-5">
+    <div className="mt-9 mb-5 ">
       <Image
         className="w-full h-30 top-0 border-1 border-gray-300s"
         src="https://placehold.co/1000x600"
@@ -32,7 +32,9 @@ export default function GetCareNow() {
           className="m-auto w-11/12"
           style={{ backgroundColor: "gray" }}
         />
-        <Link className="ml-3 mt-3 text-cyan-300">Get Care Now</Link>
+        <Link className="ml-3 mt-3 text-cyan-400 mb-5 text-lg">
+          Get Care Now
+        </Link>
       </div>
     </div>
   );
