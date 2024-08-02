@@ -7,20 +7,57 @@ import {
   DropdownMenu,
 } from "@nextui-org/dropdown";
 import { useState, useMemo } from "react";
-import { Styles } from "../styles";
+import { SecondNavIcon } from "../icons";
 
 export default function SecondNav() {
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["for_patients"]));
+  const [selectedKey, setSelectedKeys] = useState("for_patients");
   const selectedValue = useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
+    () => selectedKey.toString().replace("_", " "),
+    [selectedKey]
   );
-  const buttonStrings = [
-    { id: 1, name: "Make an Appointment" },
-    { id: 2, name: "MyChart Patient Portal" },
-    { id: 3, name: "Pay a Bill" },
-    { id: 4, name: "Services and Conditions" },
+
+  const selectionChanged = (arg: any) => {
+    if (typeof arg === "object") {
+      const newKey = Array.from(arg).join(", ").replaceAll("_", " ");
+      setSelectedKeys(newKey);
+      return;
+    }
+    setSelectedKeys(arg);
+  };
+
+  const for_patients_Obj = [
+    { id: 0, name: "Make an Appointment" },
+    { id: 1, name: "MyChart Patient Portal" },
+    { id: 2, name: "Pay a Bill", icon: "pay_a_bill" },
+    { id: 3, name: "Services and Conditions" },
   ];
+  const for_medical_professionals_Obj = [
+    { id: 4, name: "Transfer a Patient" },
+    { id: 5, name: "Continuing Education" },
+    { id: 6, name: "Careers" },
+    { id: 7, name: "Research & Education" },
+  ];
+  const for_team_members_Obj = [
+    { id: 8, name: "Employment Resources" },
+    { id: 9, name: "Physician Access" },
+    { id: 10, name: "Shop Merchandise" },
+    { id: 11, name: "Current Job Listings" },
+  ];
+  const for_the_community_Obj = [
+    { id: 12, name: "Classes and Events" },
+    { id: 13, name: "Health & Fitness Pavilion" },
+    { id: 14, name: "Corporate Health" },
+    { id: 15, name: "TriHealth Foundation" },
+  ];
+
+  const buttonList =
+    selectedKey === "for patients"
+      ? for_patients_Obj
+      : selectedKey === "for medical professionals"
+        ? for_medical_professionals_Obj
+        : selectedKey === "for team members"
+          ? for_team_members_Obj
+          : for_the_community_Obj;
 
   return (
     <div className="border-slate-300 border-1 rounded-lg m-5 p-2 bg-white mt-[-8vh]">
@@ -42,12 +79,12 @@ export default function SecondNav() {
             </DropdownTrigger>
           </div>
           <DropdownMenu
-            aria-label="Single selection example"
+            aria-label="Second Nav Dropdown"
             variant="flat"
             disallowEmptySelection
             selectionMode="single"
-            selectedKeys={selectedKeys}
-            onSelectionChange={setSelectedKeys}
+            selectedKeys={selectedKey}
+            onSelectionChange={selectionChanged}
             defaultSelectedKeys="for_patients"
             className="text-md"
           >
@@ -62,14 +99,18 @@ export default function SecondNav() {
           </DropdownMenu>
         </Dropdown>
       </div>
-      {buttonStrings.map((item) => (
-        <div className={Styles.secondaryNavDiv} key={item.id}>
+      {buttonList.map((item) => (
+        <div
+          className={"my-4 mx-2 border-1 shadow-lg rounded-lg border-gray-300"}
+          key={item.id}
+        >
           <Button
             variant="light"
-            className={Styles.secondaryNavButton}
+            className="p-11 rounded-lg relative capitalize text-md font-bold text-blue-700"
             fullWidth
           >
-            {item.name}
+            <SecondNavIcon iconName={item.id.toString()} />
+            <p>{item.name}</p>
           </Button>
         </div>
       ))}
