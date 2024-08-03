@@ -1,4 +1,4 @@
-# [Web App](https://medical-office-nextui-app.web.app/)
+# [Check out the website!](https://medical-office-nextui-app.web.app/)
 Currently only available in mobile view.
 
 ## Technologies Used
