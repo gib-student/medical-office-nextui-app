@@ -4,6 +4,7 @@ import { Card } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
+
 import { pt_serif_font, Styles } from "../styles";
 import { WhiteDownArrow } from "./WhiteDownArrow";
 
@@ -31,7 +32,7 @@ export default function FeaturedServicesCard({
     <>
       <Card className="relative border-1 border-gray-100 p-3 mx-5">
         <div className="flex justify-start">
-          <Image src={src} alt="Card Image" width={100} />
+          <Image alt="Card Image" src={src} width={100} />
           {/* Headings */}
           <div className={`ml-2`}>
             <h2 className={`${pt_serif_font.className} ${Styles.cardTitle}`}>

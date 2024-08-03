@@ -22,6 +22,7 @@ export default function SecondNav() {
   const selectionChanged = (arg: any) => {
     if (typeof arg === "object") {
       const newKey = Array.from(arg).join(", ").replaceAll("_", " ");
+
       setSelectedKeys(newKey);
 
       return;
@@ -83,7 +84,6 @@ export default function SecondNav() {
             </DropdownTrigger>
           </div>
           <DropdownMenu
-            onSelectionChange={selectionChanged}
             aria-label="Second Nav Dropdown"
             className="text-md"
             defaultSelectedKeys="for_patients"
@@ -91,6 +91,7 @@ export default function SecondNav() {
             selectionMode="single"
             selectedKeys={selectedKey}
             variant="flat"
+            onSelectionChange={selectionChanged}
           >
             <DropdownItem key="for_patients">For Patients</DropdownItem>
             <DropdownItem key="for_medical_professionals">

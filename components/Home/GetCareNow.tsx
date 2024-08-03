@@ -1,5 +1,6 @@
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
+
 import { Link } from "@nextui-org/link";
 import { pt_serif_font } from "../styles";
 
@@ -8,8 +9,8 @@ export default function GetCareNow() {
     <div className="mt-9 mb-5 ">
       <Image
         className="w-full h-30 top-0 border-1 border-gray-300s"
-        src="https://placehold.co/1000x600"
         radius="none"
+        src="https://placehold.co/1000x600"
       ></Image>
       <div className="bg-blue-900">
         <h3
@@ -22,10 +23,10 @@ export default function GetCareNow() {
           We provide the tools and knowledge to keep yourself healthy and living
           life to the fullest with our extensive network of physicians, nurses,
           clinics, and hospitals, including Bethesda, McCullough-Hyde, and Good
-          Samaritan. Whether it&apos;'s an emergency or a routine checkup—or any
-          moment in between—we provide quality care, comprehensive health
-          services, and peace of mind for you and your loved ones in Hamilton,
-          Butler, Clinton, and Warren counties in southwest Ohio, and across the
+          Samaritan. Whether its an emergency or a routine checkup—or any moment
+          in between—we provide quality care, comprehensive health services, and
+          peace of mind for you and your loved ones in Hamilton, Butler,
+          Clinton, and Warren counties in southwest Ohio, and across the
           Tri-State region.
         </p>
         <Divider

@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/navbar";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
+
 import { link as linkStyles } from "@nextui-org/theme";
 
 import NextLink from "next/link";
@@ -89,7 +90,7 @@ export const Navbar = () => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link color="foreground" href="#" size="lg" className="mb-5">
+              <Link color="foreground" className="mb-5" href="#" size="lg">
                 {item.label}
               </Link>
               <Divider />

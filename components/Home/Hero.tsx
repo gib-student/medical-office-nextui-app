@@ -10,10 +10,10 @@ export default function Hero() {
       <div className="relative">
         <div className="h-8 w-full top-0 absolute z-10 bg-gradient-to-b from-white" />
         <Image
-          className="z-0"
           alt="Hero photo"
-          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej∑"
+          className="z-0"
           radius="none"
+          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej∑"
         />
         <div className="mb-[-3] h-64 w-full bottom-0 absolute z-10 bg-gradient-to-t from-black" />
       </div>
