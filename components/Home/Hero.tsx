@@ -11,7 +11,7 @@ export default function Hero() {
         <div className="h-1 w-full top-0 absolute z-10 bg-gradient-to-b from-white" />
         <Image
           alt="Hero photo"
-          className="z-0"
+          className=""
           radius="none"
           src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm-2.jpg?raw=true"
         />

@@ -8,9 +8,9 @@ export default function GetCareNow() {
   return (
     <div className="mt-9 mb-5 ">
       <Image
-        className="w-full h-30 top-0 border-1 border-gray-300s"
+        className="w-full top-0 border-gray-300s"
         radius="none"
-        src="https://placehold.co/1000x600"
+        src="https://cd.trihealth.com/-/media/trihealth-new/home-page/home-page-nurse-woman-900.png?h=319&iar=0&w=900&hash=A34BB88BC07A4DF7248FABA1AA3D9866"
       ></Image>
       <div className="bg-blue-900">
         <h3

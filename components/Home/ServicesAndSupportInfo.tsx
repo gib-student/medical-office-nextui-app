@@ -4,7 +4,7 @@ import { Link } from "@nextui-org/link";
 export default function ServicesAndSupportInfo() {
   return (
     <div className="mx-4 mt-10">
-      <Image src="https://placehold.co/600x600" />
+      <Image src="https://cd.trihealth.com/-/media/trihealth-new/home-page/woman-wearing-headscarf-smiling-on-yoga-mat-800.jpg?h=800&iar=0&w=800&hash=2B8E28D1F30FE8A680B8F18F1EA15348" />
       <div>
         <h3 className={`$""`}>
           Medical and holistic services and support to take control of your
