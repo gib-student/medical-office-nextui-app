@@ -1,8 +1,5 @@
-# Next.js & NextUI Template
-
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
-
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+# [Check out the website!](https://medical-office-nextui-app.web.app/)
+Currently only available in mobile view. Designed and styled after the [TriHealth Medical Group website](https://www.trihealth.com/).
 
 ## Technologies Used
 
