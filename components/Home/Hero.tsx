@@ -13,9 +13,9 @@ export default function Hero() {
           alt="Hero photo"
           className="z-0"
           radius="none"
-          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm.jpg?raw=truej∑"
+          src="https://github.com/gib-student/medical-office-nextui-app/blob/main/public/family-practice-sm-2.jpg?raw=true"
         />
-        <div className="mb-[-3] h-64 w-full bottom-0 absolute z-10 bg-gradient-to-t from-black" />
+        <div className="mb-[-3] h-36 w-full bottom-0 absolute z-10 bg-gradient-to-t from-black" />
       </div>
       {/* Headings and "find a doctor" button */}
       <div className="text-white row-start-6 row-span-5 bg-black">
