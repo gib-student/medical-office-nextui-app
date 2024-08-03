@@ -1,5 +1,5 @@
 # [Check out the website!](https://medical-office-nextui-app.web.app/)
-Currently only available in mobile view.
+Currently only available in mobile view. Styled after the [TriHealth Health Group website](https://www.trihealth.com/).
 
 ## Technologies Used
 
