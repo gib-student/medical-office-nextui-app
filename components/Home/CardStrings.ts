@@ -35,7 +35,7 @@ export const CardData: card[] = [
   },
   {
     id: "trihealth_clinic",
-    title: "TriHealth Clinic",
+    title: "Four Seasons Clinic",
     subtitle: "Find a Location",
     href: "#",
     src: "https://cd.trihealth.com/-/media/jumpstart/locations/walgreens-colerain-250x250.jpg?h=250&iar=0&w=250&hash=31621BA5C325D595D7D4F7AB144F73A7",
