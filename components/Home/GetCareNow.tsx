@@ -14,7 +14,7 @@ export default function GetCareNow() {
       ></Image>
       <div className="bg-blue-900">
         <h3
-          className={`${"mx-3 text-white text-xl"} ${pt_serif_font.className}`}
+          className={`${"pt-3 mx-3 text-white text-xl"} ${pt_serif_font.className}`}
           style={{ fontWeight: 700 }}
         >
           Improve the Quality of Your Life with Our Full-Service Care Network
