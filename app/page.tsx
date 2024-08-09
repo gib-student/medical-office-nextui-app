@@ -4,6 +4,7 @@ import Hero from "@/components/Home/Hero";
 import SecondNav from "@/components/Home/SecondNav";
 import GetCareNow from "@/components/Home/GetCareNow";
 import ServicesAndSupportInfo from "@/components/Home/ServicesAndSupportInfo";
+import MyChartInfo from "@/components/Home/MyChartInfo";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <FeaturedServices />
       <GetCareNow />
       <ServicesAndSupportInfo />
+      <MyChartInfo />
     </>
   );
 }

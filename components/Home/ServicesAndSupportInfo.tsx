@@ -6,10 +6,10 @@ import { IntegratedMedicalIcon, HealthResourcesIcon } from "../icons";
 export default function ServicesAndSupportInfo() {
   return (
     <div className="relative mx-4 mt-10">
-      <div className="absolute">
+      <div className="z-0">
         <Image src="https://cd.trihealth.com/-/media/trihealth-new/home-page/woman-wearing-headscarf-smiling-on-yoga-mat-800.jpg?h=800&iar=0&w=800&hash=2B8E28D1F30FE8A680B8F18F1EA15348" />
       </div>
-      <div className="bg-white rounded-s-2xl absolute top-64 right-0 z-10 w-11/12 p-5">
+      <div className="absolute bg-white rounded-s-2xl mt-[-64] right-0 z-10 w-11/12 p-5">
         <h3
           className={`${"text-xl text-blue-900"} ${pt_serif_font.className}`}
           style={{ fontWeight: 700 }}
