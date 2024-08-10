@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/button";
 import FeaturedServices from "@/components/Home/FeaturedServices";
 import GetCareNow from "@/components/Home/GetCareNow";
-import AwardsAndStatistics from "@/components/Home/GoldStandardInNursing";
+import AwardsAndStatistics from "@/components/Home/AwardsAndStatistics";
 import Hero from "@/components/Home/Hero";
 import MyChartInfo from "@/components/Home/MyChartInfo";
 import SecondNav from "@/components/Home/SecondNav";
