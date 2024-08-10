@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <>
       <div className="relative">
-        <div className="h-1 w-full top-0 absolute z-10 bg-gradient-to-b from-white" />
+        <div className="h-10 w-full top-0 absolute z-10 bg-gradient-to-b from-black" />
         <Image
           alt="Hero photo"
           className=""
