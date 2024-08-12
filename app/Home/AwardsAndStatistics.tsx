@@ -2,8 +2,8 @@ import { Image } from "@nextui-org/image";
 import { Divider } from "@nextui-org/divider";
 import { Link } from "@nextui-org/link";
 
-import { GoldStandardIcon } from "../icons";
-import { pt_serif_font } from "../styles";
+import { GoldStandardIcon } from "@/components/icons";
+import { pt_serif_font } from "@/components/styles";
 
 export default function AwardsAndStatistics() {
   return (

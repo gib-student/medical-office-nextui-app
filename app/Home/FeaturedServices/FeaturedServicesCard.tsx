@@ -5,9 +5,9 @@ import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 
-import { pt_serif_font, Styles } from "../styles";
+import { pt_serif_font, Styles } from "@/components/styles";
 
-import { WhiteDownArrow } from "./WhiteDownArrow";
+import { WhiteDownArrow } from "@/components/icons";
 
 interface Props {
   title: string;

@@ -429,7 +429,6 @@ export const GoldStandardIcon = ({ item }: GoldStandardProps) => {
       return (
         <svg
           fill="#5f6368"
-          height="px"
           viewBox="0 -960 960 960"
           width="140px"
           xmlns="http://www.w3.org/2000/svg"
@@ -441,7 +440,6 @@ export const GoldStandardIcon = ({ item }: GoldStandardProps) => {
       return (
         <svg
           fill="#5f6368"
-          height="px"
           viewBox="0 -960 960 960"
           width="110px"
           xmlns="http://www.w3.org/2000/svg"
@@ -453,7 +451,6 @@ export const GoldStandardIcon = ({ item }: GoldStandardProps) => {
       return (
         <svg
           fill="#5f6368"
-          height="px"
           viewBox="0 -960 960 960"
           width="140px"
           xmlns="http://www.w3.org/2000/svg"
@@ -465,3 +462,38 @@ export const GoldStandardIcon = ({ item }: GoldStandardProps) => {
       return null;
   }
 };
+
+export const WhiteDownArrow = () => (
+  <svg
+    fill="#ffffff"
+    id="Layer_1"
+    version="1.1"
+    viewBox="0 0 330 330"
+    width="15px"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g id="SVGRepo_bgCarrier" />
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
+        id="XMLID_225_"
+      />{" "}
+    </g>
+  </svg>
+);
+
+export const ChevronDownIcon = () => (
+  <svg
+    fill="none"
+    height="14"
+    viewBox="0 0 24 24"
+    width="14"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z"
+      fill="currentColor"
+    />
+  </svg>
+);

@@ -1,4 +1,4 @@
-import { pt_serif_font, Styles } from "../styles";
+import { pt_serif_font, Styles } from "@/components/styles";
 
 import FeaturedServicesCard from "./FeaturedServicesCard";
 import { CardData } from "./CardStrings";

@@ -7,9 +7,9 @@ import {
 } from "@nextui-org/dropdown";
 import { useState, useMemo } from "react";
 
-import { SecondNavIcon } from "../icons";
+import { SecondNavIcon } from "@/components/icons";
 
-import { ChevronDownIcon } from "@/components/Home/ChevronDownIcon";
+import { ChevronDownIcon } from "@/components/icons";
 
 export default function SecondNav() {
   const [selectedKey, setSelectedKeys] = useState("for_patients");

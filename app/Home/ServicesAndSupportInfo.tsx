@@ -1,8 +1,11 @@
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 
-import { pt_serif_font } from "../styles";
-import { IntegratedMedicalIcon, HealthResourcesIcon } from "../icons";
+import { pt_serif_font } from "@/components/styles";
+import {
+  IntegratedMedicalIcon,
+  HealthResourcesIcon,
+} from "../../components/icons";
 
 export default function ServicesAndSupportInfo() {
   return (

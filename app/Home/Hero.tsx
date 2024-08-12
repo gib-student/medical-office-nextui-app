@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 
-import { pt_serif_font } from "../styles";
+import { pt_serif_font } from "@/components/styles";
 
 export default function Hero() {
   const h1Style = `${"text-4xl font-bold px-3"} + ${pt_serif_font.className}`;

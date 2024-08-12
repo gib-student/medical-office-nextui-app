@@ -1,16 +1,21 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
+import { NextUIProvider } from "@nextui-org/system";
 
-import FeaturedServices from "@/components/Home/FeaturedServices";
-import GetCareNow from "@/components/Home/GetCareNow";
-import AwardsAndStatistics from "@/components/Home/AwardsAndStatistics";
-import Hero from "@/components/Home/Hero";
-import MyChartInfo from "@/components/Home/MyChartInfo";
-import SecondNav from "@/components/Home/SecondNav";
-import ServicesAndSupportInfo from "@/components/Home/ServicesAndSupportInfo";
+import FeaturedServices from "./Home/FeaturedServices/FeaturedServices";
+import GetCareNow from "./Home/GetCareNow";
+import AwardsAndStatistics from "./Home/AwardsAndStatistics";
+import Hero from "./Home/Hero";
+import MyChartInfo from "./Home/MyChartInfo";
+import SecondNav from "./Home/SecondNav";
+import ServicesAndSupportInfo from "./Home/ServicesAndSupportInfo";
+
+// import path from "path";
 
 export default function Home() {
+  // const appRoot = path.resolve(__dirname, "..");
+  // console.log(appRoot);
   return (
     <>
       <Hero />
