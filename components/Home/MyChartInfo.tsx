@@ -2,12 +2,13 @@ import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
+
 import { pt_serif_font } from "../styles";
 
 export default function MyChartInfo() {
   return (
     <div className="relative">
-      <div className="h-24 bg-white"></div>
+      <div className="h-24 bg-white" />
       <div className="absolute top-1 flex justify-center w-full">
         <Image
           className="w-48"

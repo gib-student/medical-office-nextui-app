@@ -13,10 +13,9 @@ import {
 } from "@nextui-org/navbar";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-
 import { link as linkStyles } from "@nextui-org/theme";
-
 import NextLink from "next/link";
+
 import { siteConfig } from "@/config/site";
 import { SearchIcon, Logo } from "@/components/icons";
 

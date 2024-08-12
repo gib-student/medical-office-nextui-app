@@ -1,7 +1,8 @@
 import { Image } from "@nextui-org/image";
 import { Divider } from "@nextui-org/divider";
-import { GoldStandardIcon } from "../icons";
 import { Link } from "@nextui-org/link";
+
+import { GoldStandardIcon } from "../icons";
 import { pt_serif_font } from "../styles";
 
 export default function AwardsAndStatistics() {
@@ -45,7 +46,7 @@ export default function AwardsAndStatistics() {
           </div>
         </div>
       </div>
-      <div className="h-14"></div>
+      <div className="h-14" />
       <Divider className="mb-5" />
       <div className="flex">
         <GoldStandardIcon item={0} />

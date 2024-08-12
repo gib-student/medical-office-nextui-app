@@ -1,5 +1,6 @@
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
+
 import { pt_serif_font } from "../styles";
 
 export default function Hero() {

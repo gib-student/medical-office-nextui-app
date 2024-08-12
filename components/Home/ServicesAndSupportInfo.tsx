@@ -1,5 +1,6 @@
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
+
 import { pt_serif_font } from "../styles";
 import { IntegratedMedicalIcon, HealthResourcesIcon } from "../icons";
 

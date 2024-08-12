@@ -1,5 +1,7 @@
 "use client";
+
 import { Button } from "@nextui-org/button";
+
 import FeaturedServices from "@/components/Home/FeaturedServices";
 import GetCareNow from "@/components/Home/GetCareNow";
 import AwardsAndStatistics from "@/components/Home/AwardsAndStatistics";

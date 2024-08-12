@@ -6,6 +6,7 @@ import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 
 import { pt_serif_font, Styles } from "../styles";
+
 import { WhiteDownArrow } from "./WhiteDownArrow";
 
 interface Props {

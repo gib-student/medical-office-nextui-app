@@ -5,7 +5,6 @@ import {
   DropdownTrigger,
   DropdownMenu,
 } from "@nextui-org/dropdown";
-
 import { useState, useMemo } from "react";
 
 import { SecondNavIcon } from "../icons";
