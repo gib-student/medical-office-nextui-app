@@ -11,12 +11,12 @@ export default function MyChartInfo() {
       <div className="absolute top-1 flex justify-center w-full">
         <Image
           className="w-48"
-          src="https://cd.trihealth.com/-/media/trihealth-new/home-page/phone2.png?h=524&iar=0&w=384&hash=8CAE7283793EA8452F27E579AE5D1676"
           radius="none"
+          src="https://cd.trihealth.com/-/media/trihealth-new/home-page/phone2.png?h=524&iar=0&w=384&hash=8CAE7283793EA8452F27E579AE5D1676"
         />
       </div>
       <div className="bg-gradient-to-b from-neutral-950 to-blue-900 pb-4">
-        <div className="h-44"></div>
+        <div className="h-44" />
         <Divider className="" style={{ backgroundColor: "gray" }} />
         <h2
           className={`${"text-center text-white text-xl mx-4 my-4"} ${pt_serif_font.className}`}
@@ -27,8 +27,8 @@ export default function MyChartInfo() {
         <p className="text-center text-white mx-4">
           MyChart makes it simple to keep track of your health records,
           appointment notes, prescriptions, and test results online. Ready to
-          get started? Set up an account through your primary car physician's
-          office with an activation code or sign up online.
+          get started? Set up an account through your primary car
+          physician&apos;s office with an activation code or sign up online.
         </p>
         <div className="p-3">
           <Button

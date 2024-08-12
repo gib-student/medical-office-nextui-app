@@ -18,7 +18,7 @@ export default function Home() {
       <ServicesAndSupportInfo />
       <MyChartInfo />
       <AwardsAndStatistics />
-      <div className="h-14"></div>
+      <div className="h-14" />
       <div className="fixed bottom-0 right-0 left-0 bg-white p-2 z-50">
         <Button className="rounded-md bg-blue-900 text-white w-full">
           Get Care Now

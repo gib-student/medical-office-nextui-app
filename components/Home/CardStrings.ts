@@ -6,7 +6,7 @@ interface card {
   src: string;
   desc: string;
 }
-const srcPlaceholder = "https://placehold.co/100";
+// const srcPlaceholder = "https://placehold.co/100";
 
 export const CardData: card[] = [
   {

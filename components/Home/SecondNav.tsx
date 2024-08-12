@@ -84,12 +84,12 @@ export default function SecondNav() {
             </DropdownTrigger>
           </div>
           <DropdownMenu
+            disallowEmptySelection
             aria-label="Second Nav Dropdown"
             className="text-md"
             defaultSelectedKeys="for_patients"
-            disallowEmptySelection
-            selectionMode="single"
             selectedKeys={selectedKey}
+            selectionMode="single"
             variant="flat"
             onSelectionChange={selectionChanged}
           >

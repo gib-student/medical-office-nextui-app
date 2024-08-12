@@ -11,7 +11,7 @@ export default function GetCareNow() {
         className="w-full top-0 border-gray-300s"
         radius="none"
         src="https://cd.trihealth.com/-/media/trihealth-new/home-page/home-page-nurse-woman-900.png?h=319&iar=0&w=900&hash=A34BB88BC07A4DF7248FABA1AA3D9866"
-      ></Image>
+      />
       <div className="bg-blue-900">
         <h3
           className={`${"pt-3 mx-3 text-white text-xl"} ${pt_serif_font.className}`}

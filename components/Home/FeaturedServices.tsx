@@ -1,7 +1,7 @@
+import { pt_serif_font, Styles } from "../styles";
 import FeaturedServicesCard from "./FeaturedServicesCard";
 
 import { CardData } from "./CardStrings";
-import { pt_serif_font, Styles } from "../styles";
 
 export default function FeaturedServices() {
   return (

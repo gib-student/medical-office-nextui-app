@@ -1,21 +1,21 @@
 import { Image } from "@nextui-org/image";
+import { Divider } from "@nextui-org/divider";
 import { GoldStandardIcon } from "../icons";
 import { Link } from "@nextui-org/link";
 import { pt_serif_font } from "../styles";
-import { Divider } from "@nextui-org/divider";
 
 export default function AwardsAndStatistics() {
   return (
     <div className="mx-5">
       <div
-        className="relative mt-6 bg-cover bg-no-repeat rounded-2xl p-3"
+        className="relative rounded-lg mt-6 bg-cover bg-no-repeat rounded-2xl p-3"
         style={{
           backgroundImage:
             'url("https://cd.trihealth.com/-/media/trihealth-new/home-page/home-page-gold-standard-in-nursing-680x740.jpg?h=780&iar=0&w=640&hash=D08E9324278DDACB88CAC507A54A2DCB")',
         }}
       >
         {/* Black tint */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-0"></div>
+        <div className="absolute rounded-lg top-0 left-0 w-full h-full bg-black opacity-30 z-0" />
         <div className="relative z-10">
           <h2
             className={`${pt_serif_font.className} ${"text-yellow-400 text-4xl"}`}
@@ -30,7 +30,7 @@ export default function AwardsAndStatistics() {
             in Nursing
           </h2>
           <p className="text-white">
-            The American Nurses Credentialing Center's Magnet Recognition
+            The American Nurses Credentialing Center&apos;s Magnet Recognition
             Program&reg; distiguishes organizations that meet rigorous standards
             for nursing excellence. Four Seasons is one of the fewer than 30
             health care systems in this nation to have this prestigious
@@ -77,11 +77,11 @@ export default function AwardsAndStatistics() {
             1 in 3 Babies
           </h3>
           <p>
-            in the Atlanta area we are delivered at Four Seaons hospitals. We're
-            the experts parents trust with their newborns.
+            in the Atlanta area we are delivered at Four Seaons hospitals.
+            We&apos;re the experts parents trust with their newborns.
           </p>
           <Link className="font-bold" underline="always">
-            Women's Health
+            Women&apos;s Health
           </Link>
         </div>
       </div>
