@@ -47,7 +47,7 @@ export const usePasswordState = () => {
     passwordConfirmed: false,
   });
 
-  return passwordState;
+  return [passwordState, setPasswordState];
 };
 
 export const useEmailState = () => {
@@ -58,7 +58,7 @@ export const useEmailState = () => {
     emailConfirmed: false,
   });
 
-  return emailState;
+  return [emailState, setEmailState];
 };
 
 export const useVisibilityState = () => {
@@ -67,7 +67,7 @@ export const useVisibilityState = () => {
     confirmPasswordVisible: false,
   });
 
-  return visibilityState;
+  return [visibilityState, setVisibilityState];
 };
 
 // // Password values
@@ -110,17 +110,17 @@ const validatePassword = (testPassword: string) => {
 // Sign-in user with Google Authentication
 const signIn = ({password, passwordInput, passwordConfirmInput, loginAttempted, passwordConfirmed}: PasswordInterface) => {
   // Record that a sign-in was attemped
-  setLoginAttempted(true);
+  loginAttempted = true;
 
   // Ensure passwords match and it passes the password requirements
   const isPasswordValid =
     passwordInput === passwordConfirmInput && validatePassword(passwordInput);
   // Record password confirmation
-  setPasswordConfirmed(isPasswordValid);
+  passwordConfirmed = isPasswordValid;
 
   // If password is valid then proceed to sign-in
   if (isPasswordValid) {
-    setPassword(passwordInput);
+    password = passwordInput;
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
