@@ -34,10 +34,8 @@ interface EmailInterface {
 }
 
 interface VisibilityInterface {
-  isVisible: boolean;
-  isVisible2: boolean;
-  toggleVisibility: () => void;
-  toggleVisibility2: () => void;
+  passwordVisible: boolean;
+  confirmPasswordVisible: boolean;
 }
 
 export const usePasswordState = () => {
@@ -64,22 +62,13 @@ export const useEmailState = () => {
 };
 
 export const useVisibilityState = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isVisible2, setIsVisible2] = useState(false);
+  const [visibilityState, setVisibilityState] = useState<VisibilityInterface>({
+    passwordVisible: false,
+    confirmPasswordVisible: false,
+  });
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
-  const toggleVisibility2 = () => setIsVisible2(!isVisible2);
-
-  return {
-    isVisible,
-    isVisible2,
-    toggleVisibility,
-    toggleVisibility2,
-  };
+  return visibilityState;
 };
-
-
-
 
 // // Password values
 // const [password, setPassword] = useState("");
@@ -119,7 +108,7 @@ const validatePassword = (testPassword: string) => {
 };
 
 // Sign-in user with Google Authentication
-const signIn = () => {
+const signIn = ({password, passwordInput, passwordConfirmInput, loginAttempted, passwordConfirmed}: PasswordInterface) => {
   // Record that a sign-in was attemped
   setLoginAttempted(true);
 
