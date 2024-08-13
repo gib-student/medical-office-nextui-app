@@ -3,11 +3,10 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { useState } from "react";
 
-
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-// Interfaces 
+// Interfaces
 interface PasswordInterface {
   password: string;
   passwordInput: string;
@@ -37,7 +36,7 @@ export const usePasswordState = () => {
     passwordConfirmed: false,
   });
 
-  return [passwordState, setPasswordState];
+  return passwordState;
 };
 
 export const useEmailState = () => {
@@ -48,7 +47,7 @@ export const useEmailState = () => {
     emailConfirmed: false,
   });
 
-  return [emailState, setEmailState];
+  return emailState;
 };
 
 export const useVisibilityState = () => {
@@ -57,7 +56,7 @@ export const useVisibilityState = () => {
     confirmPasswordVisible: false,
   });
 
-  return [visibilityState, setVisibilityState];
+  return visibilityState;
 };
 
 // // Password values
@@ -100,17 +99,17 @@ const validatePassword = (testPassword: string) => {
 // Sign-in user with Google Authentication
 const signIn = ({password, passwordInput, passwordConfirmInput, loginAttempted, passwordConfirmed}: PasswordInterface) => {
   // Record that a sign-in was attemped
-  loginAttempted = true;
+  setLoginAttempted(true);
 
   // Ensure passwords match and it passes the password requirements
   const isPasswordValid =
     passwordInput === passwordConfirmInput && validatePassword(passwordInput);
   // Record password confirmation
-  passwordConfirmed = isPasswordValid;
+  setPasswordConfirmed(isPasswordValid);
 
   // If password is valid then proceed to sign-in
   if (isPasswordValid) {
-    password = passwordInput;
+    setPassword(passwordInput);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
