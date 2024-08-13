@@ -2,15 +2,15 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "Four Seasons Medical",
-  description: "Good heath begins with human care.",
+  description: "Good health begins with human care.",
   navItems: [
     {
       label: "MyChart Login",
-      href: "/mychartlogin"
+      href: "/myChartLogin"
     },
     {
       label: "Pay a Bill",
-      href: "/payabill",
+      href: "/payABill",
     },
     {
       label: "Careers",
@@ -22,13 +22,13 @@ export const siteConfig = {
     },
     {
       label: "Contact Us",
-      href: "/contactus",
+      href: "/contactUs",
     },
   ],
   navMenuItems: [
     {
       label: "Find a Doctor",
-      href: "/findadoctor",
+      href: "/findADoctor",
     },
     {
       label: "Services",
@@ -40,7 +40,7 @@ export const siteConfig = {
     },
     {
       label: "Patients & Visitors",
-      href: "/patientsandvisitors",
+      href: "/patientsAndVisitors",
     },
     {
       label: "Resources",
