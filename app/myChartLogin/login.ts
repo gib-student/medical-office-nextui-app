@@ -3,10 +3,11 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { useState } from "react";
 
+
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-// Interfaces
+// Interfaces 
 interface PasswordInterface {
   password: string;
   passwordInput: string;
