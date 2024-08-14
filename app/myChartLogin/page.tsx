@@ -15,57 +15,55 @@ import { useState } from "react";
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-// Error messages list has 1-1 relationship with codes. Use code as index to access the message.
-const passwordErrorCodes = {
-  default: 0,
-  emptyEmailField: 1,
-  emptyPasswordField: 2,
-  emptyConfirmPasswordField: 3,
-  simplePassword: 4,
-};
-const passwordErrorMessages = [
-  // Default message
-  "Please enter your your desired password.",
-  // Email not entered first
-  "Please enter an email first.",
-  // Password field empty
-  "Password field is empty. Please enter a password.",
-  // Confirm password field is empty
-  "Please confirm your password.",
-  // Password doesn't match complexity requirements
-  "Password does not meet requirements. It must be at contain at least 8 characters, a lower-case letter, an upper-case letter, and 1 special character.",
-  // Confirmation password does not match
-  "Confirmation password does not match.",
-];
+// Ensure password meets requirements
+const ensureComplexPassword = (testPassword: string) => {
+  /* Regex:
+  Has minimum 8 characters in length. Adjust it by modifying {8,}
+  * At least one uppercase English letter. 
+    You can remove this condition by removing (?=.*?[A-Z])
+  * At least one lowercase English letter.  
+    You can remove this condition by removing (?=.*?[a-z])
+  * At least one digit. 
+    You can remove this condition by removing (?=.*?[0-9])
+  * At least one special character,  
+    You can remove this condition by removing (?=.*?[#?!@$%^&*-]) */
+  const regex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
-const confirmPasswordErrorCodes = {
-  default: 0,
-  differentPasswords: 1,
+  return regex.test(testPassword);
 };
-const confirmPasswordErrorMessages = [
-  // Default message
-  "Please re-enter your password.",
-  // Different passwords
-  "Passwords do not match.",
-];
 
-// Email error codes and messages; use code as index to get its corresponding message.
-const emailErrorCodes = {
-  default: 0,
-  emptyEmailField: 1,
-  wrongFormat: 2,
-  invalidEmail: 3,
+const ensureValidEmailFormat = (testEmail: string) => {
+  /* One or more characters that can be letters (a-z, A-Z), digits (0-9), 
+  underscores (_), dots (.), plus signs (+), or hyphens (-).
+  @	The at symbol, which is required in all valid email addresses.
+  [a-zA-Z0-9-]+	One or more characters that can be letters (a-z, A-Z), 
+  digits (0-9), or hyphens (-). This represents the domain name.
+  .	The dot character, which is used to separate the domain name from 
+  the top-level domain (TLD).
+  [a-zA-Z0-9-.]+	One or more characters that can be letters (a-z, A-Z), 
+  digits (0-9), hyphens (-), or dots (.). This represents the TLD. */
+
+  const regex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+  return regex.test(testEmail);
 };
-const emailErrorMessages = [
-  // Default message
-  "Please enter your email.",
-  // Empty email field
-  "Please enter your email.",
-  // Wrong email format
-  "Invalid email format. Please enter an email address like 'johndoe@gmail.com'.",
-  // Invalid email
-  "Please enter a valid email address.",
-];
+
+const passwordErrorMessages = {
+  default: "default message",
+  emptyPasswordField: "Please enter a password.",
+  emptyConfirmPasswordField: "Please confirm your password.",
+  simplePassword:
+    "Password does not meet requirements. It must be at contain at least 8 characters, a lower-case letter, an upper-case letter, and 1 special character.",
+  differentPasswords: "Confirmation password does not match.",
+};
+
+const emailErrorMessages = {
+  default: "Please enter your email.",
+  emptyEmailField: "Please enter your email.",
+  wrongFormat:
+    "Invalid email format. Please enter an email address like 'johndoe@gmail.com'.",
+  invalidEmail: "Please enter a valid email address.",
+};
 
 export default function MyChartLoginPage() {
   // Email values
@@ -73,8 +71,6 @@ export default function MyChartLoginPage() {
   const [emailInput, setEmailInput] = useState("");
   const [emailMatchesFormat, setEmailMatchesFormat] = useState(false);
   const [emailConfirmed, setEmailConfirmed] = useState(false);
-  const [emailErrorCode, setEmailErrorCode] = useState(0);
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
   // Password values
   const [password, setPassword] = useState("");
@@ -82,14 +78,9 @@ export default function MyChartLoginPage() {
   const [passwordIsComplex, setpasswordIsComplex] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [passwordConfirmed, setPasswordConfirmed] = useState(false);
-  const [passwordErrorCode, setPasswordErrorCode] = useState(0);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
   // Confirm password values
   const [passwordConfirmInput, setPasswordConfirmInput] = useState("");
-  const [confirmPasswordErrorCode, setConfirmPasswordErrorCode] = useState(0);
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState("");
 
   // Login attempted
   const [loginAttempted, setLoginAttempted] = useState(false);
@@ -100,132 +91,90 @@ export default function MyChartLoginPage() {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleVisibility2 = () => setIsVisible2(!isVisible2);
 
-  // Ensure password meets requirements
-  const ensureComplexPassword = (testPassword: string) => {
-    /* Regex:
-    Has minimum 8 characters in length. Adjust it by modifying {8,}
-    * At least one uppercase English letter. 
-      You can remove this condition by removing (?=.*?[A-Z])
-    * At least one lowercase English letter.  
-      You can remove this condition by removing (?=.*?[a-z])
-    * At least one digit. 
-      You can remove this condition by removing (?=.*?[0-9])
-    * At least one special character,  
-      You can remove this condition by removing (?=.*?[#?!@$%^&*-]) */
-    const regex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
-    return regex.test(testPassword);
-  };
-
-  const ensureValidEmailFormat = (testEmail: string) => {
-    /* One or more characters that can be letters (a-z, A-Z), digits (0-9), 
-    underscores (_), dots (.), plus signs (+), or hyphens (-).
-    @	The at symbol, which is required in all valid email addresses.
-    [a-zA-Z0-9-]+	One or more characters that can be letters (a-z, A-Z), 
-    digits (0-9), or hyphens (-). This represents the domain name.
-    .	The dot character, which is used to separate the domain name from 
-    the top-level domain (TLD).
-    [a-zA-Z0-9-.]+	One or more characters that can be letters (a-z, A-Z), 
-    digits (0-9), hyphens (-), or dots (.). This represents the TLD. */
-
-    const regex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
-    return regex.test(testEmail);
-  };
-
-  const checkEmailInputValid = () => {
-    // If a login has been attempted, simplly return the status of email
-    // confirmation. Otherwise, the input is valid.
-    return loginAttempted ? emailConfirmed : false;
-  };
-  const checkPasswordInputValid = () => {
-    return loginAttempted ? emailConfirmed : false;
-  };
-  const checkConfirmPasswordInputValid = () => {};
-
-  const checkEmailFieldError = () => {
-    let code = 0; // Set code to default
-    // Case 1: Empty email field
-    if (emailInput === "") {
-      code = emailErrorCodes.emptyEmailField;
-    } else if (!emailMatchesFormat) {
-      // Case 2: wrong format
-      code = emailErrorCodes.wrongFormat;
-    } else if (!emailConfirmed) {
-      // Case 3: invalid email
-      code = emailErrorCodes.invalidEmail;
-    }
-
-    // Set error code and message
-    const message = emailErrorMessages[code];
-    setEmailErrorCode(code);
-    setEmailErrorMessage(message);
-
-    return message;
-  };
-
-  const checkPasswordFieldError = () => {
-    let code = 0; // Set code to default
-    // Case 1: Empty email field
-    if (passwordInput === "") {
-      code = passwordErrorCodes.emptyEmailField;
-    } else if (!passwordIsComplex) {
-      // Case 2: Password is simple
-      code = passwordErrorCodes.simplePassword;
-    }
-
-    const message = passwordErrorMessages[code];
-    setPasswordErrorCode(code);
-    setPasswordErrorMessage(message);
-
-    return message;
-  };
-  const checkConfirmPasswordFieldError = () => {
-    let code = 0; // Set code to default
-    if (!passwordsMatch) {
-      // Case 1: Two passwords don't match
-      code = confirmPasswordErrorCodes.differentPasswords;
-    }
-    const message = confirmPasswordErrorMessages[code];
-    setConfirmPasswordErrorCode(code);
-    setConfirmPasswordErrorMessage(message);
-  };
-
+  /***** Sign in with Google Authentication *****/
   const signIn = () => {
     // Record that a sign-in was attemped
     setLoginAttempted(true);
 
-    // Ensure passwords match and it passes the password requirements,
-    // and ensure email passes complexity requirements
-    const match = passwordInput === passwordConfirmInput;
+    // Confirm password
+    // Test 1: Password meets complexity requirements
     const complex = ensureComplexPassword(passwordInput);
-    // Record password match
-    setPasswordsMatch(match);
-    // Record password complexity
-    setpasswordIsComplex(complex);
-    // Record password confirmation
+    // Test 2: Confirmation password matches original one
+    const match = passwordInput === passwordConfirmInput;
+    // Record results
     const isPasswordValid = match && complex;
+    setPasswordsMatch(match);
+    setpasswordIsComplex(complex);
     setPasswordConfirmed(isPasswordValid);
-    if (isPasswordValid) setPassword(passwordInput); // set official password
 
-    // Ensure email matches the correct format
-    const emailFormat = ensureValidEmailFormat(emailInput);
+    // Confirm email
+    // Test 1: Ensure email matches the correct format
+    const correctEmailFormat = ensureValidEmailFormat(emailInput);
+    setEmailMatchesFormat(correctEmailFormat);
+    setEmailConfirmed(correctEmailFormat);
 
-    // If password is valid then proceed to sign-in
-    if (isPasswordValid) {
-      setPassword(passwordInput);
+    if (isPasswordValid && emailConfirmed) {
+      setPassword(passwordInput); // set official password
+      setEmail(emailInput); // set official email
+
       const auth = getAuth();
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
+          console.log("Logged In. User: " + user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+
+          console.log("Sign-in failed.");
+          console.log("Error Code: " + errorCode);
+          console.log("Error Message: " + errorMessage);
         });
     }
+  };
+  /***** End Authentication *****/
+
+  // Get error messages
+  const getEmailFieldErrorMessage = () => {
+    let message = emailErrorMessages.default; // Set code to default
+    // Case 1: Empty email field
+    if (emailInput === "") {
+      message = emailErrorMessages.emptyEmailField;
+    } else if (!emailMatchesFormat) {
+      // Case 2: wrong format
+      message = emailErrorMessages.wrongFormat;
+    } else if (!emailConfirmed) {
+      // Case 3: invalid email
+      message = emailErrorMessages.invalidEmail;
+    }
+
+    return message;
+  };
+  const getPasswordFieldErrorMessage = () => {
+    let message = passwordErrorMessages.default; // Set code to default
+    // Case 1: Empty email field
+    if (passwordInput === "") {
+      message = passwordErrorMessages.emptyPasswordField;
+    } else if (!passwordIsComplex) {
+      // Case 2: Password is simple
+      message = passwordErrorMessages.simplePassword;
+    } else if (!passwordsMatch) {
+      // Case 3: Passwords don't match
+      message = passwordErrorMessages.differentPasswords;
+    }
+
+    return message;
+  };
+  const getConfirmPasswordErrorMessage = () => {
+    let message = passwordErrorMessages.default; // Set code to default
+    if (!passwordsMatch) {
+      // Case 1: Two passwords don't match
+      message = passwordErrorMessages.differentPasswords;
+    }
+
+    return message;
   };
 
   return (
@@ -242,8 +191,8 @@ export default function MyChartLoginPage() {
       <Input
         isClearable
         className="max-w-xs"
-        errorMessage={}
-        isInvalid={!checkEmailInputValid()}
+        errorMessage={getEmailFieldErrorMessage()}
+        isInvalid={loginAttempted ? !emailConfirmed : false}
         label="Email"
         onValueChange={setEmailInput}
         placeholder="Enter your email"
@@ -268,7 +217,8 @@ export default function MyChartLoginPage() {
             )}
           </button>
         }
-        errorMessage={checkPasswordFieldError}
+        errorMessage={getPasswordFieldErrorMessage()}
+        isInvalid={loginAttempted ? !passwordConfirmed : false}
         label="Password"
         onValueChange={setPasswordInput}
         placeholder="Enter your password"
@@ -293,8 +243,8 @@ export default function MyChartLoginPage() {
             )}
           </button>
         }
-        errorMessage={checkConfirmPasswordFieldError}
-        isInvalid={!checkPasswordInputValid()}
+        errorMessage={getConfirmPasswordErrorMessage()}
+        isInvalid={loginAttempted ? !passwordsMatch : false}
         label="Confirm password"
         onValueChange={setPasswordConfirmInput}
         placeholder="Enter your password again"
