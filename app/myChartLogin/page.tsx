@@ -12,8 +12,19 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { useState } from "react";
 
+// Firebase configuration object
+const firebaseConfig = {
+  apiKey: "AIzaSyA4mz3wNmt3e5wMtI-UHFeghxIseHHNbnM",
+  authDomain: "medical-office-nextui-app.firebaseapp.com",
+  projectId: "medical-office-nextui-app",
+  storageBucket: "medical-office-nextui-app.appspot.com",
+  messagingSenderId: "948530169418",
+  appId: "1:948530169418:web:5ab24c380ee069c1c988b3",
+  measurementId: "G-EDBBS02E7T",
+};
+
 // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // Ensure password meets requirements
 const ensureComplexPassword = (testPassword: string) => {
@@ -93,46 +104,50 @@ export default function MyChartLoginPage() {
 
   /***** Sign in with Google Authentication *****/
   const signIn = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(
+      auth,
+      "trevorgibb7@gmail.com",
+      "}B}Pg_>o_JZQZ9Lx1fZZ&"
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("Logged In. User: " + user.email);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log("Sign-in failed.");
+        console.log("Error Code: " + errorCode);
+        console.log("Error Message: " + errorMessage);
+      });
+
     // Record that a sign-in was attemped
-    setLoginAttempted(true);
+    // setLoginAttempted(true);
 
-    // Confirm password
-    // Test 1: Password meets complexity requirements
-    const complex = ensureComplexPassword(passwordInput);
-    // Test 2: Confirmation password matches original one
-    const match = passwordInput === passwordConfirmInput;
-    // Record results
-    const isPasswordValid = match && complex;
-    setPasswordsMatch(match);
-    setpasswordIsComplex(complex);
-    setPasswordConfirmed(isPasswordValid);
+    // // Confirm password
+    // // Test 1: Password meets complexity requirements
+    // const complex = ensureComplexPassword(passwordInput);
+    // // Test 2: Confirmation password matches original one
+    // const match = passwordInput === passwordConfirmInput;
+    // // Record results
+    // const isPasswordValid = match && complex;
+    // setPasswordsMatch(match);
+    // setpasswordIsComplex(complex);
+    // setPasswordConfirmed(isPasswordValid);
 
-    // Confirm email
-    // Test 1: Ensure email matches the correct format
-    const correctEmailFormat = ensureValidEmailFormat(emailInput);
-    setEmailMatchesFormat(correctEmailFormat);
-    setEmailConfirmed(correctEmailFormat);
+    // // Confirm email
+    // // Test 1: Ensure email matches the correct format
+    // const correctEmailFormat = ensureValidEmailFormat(emailInput);
+    // setEmailMatchesFormat(correctEmailFormat);
+    // setEmailConfirmed(correctEmailFormat);
 
-    if (isPasswordValid && emailConfirmed) {
-      setPassword(passwordInput); // set official password
-      setEmail(emailInput); // set official email
-
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log("Logged In. User: " + user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          console.log("Sign-in failed.");
-          console.log("Error Code: " + errorCode);
-          console.log("Error Message: " + errorMessage);
-        });
-    }
+    // if (isPasswordValid && emailConfirmed) {
+    //   setPassword(passwordInput); // set official password
+    //   setEmail(emailInput); // set official email
+    // }
   };
   /***** End Authentication *****/
 
