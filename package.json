@@ -27,13 +27,15 @@
 		"@react-aria/ssr": "3.9.4",
 		"@react-aria/visually-hidden": "3.8.12",
 		"clsx": "2.1.1",
+		"firebase": "^10.12.5",
 		"framer-motion": "~11.1.1",
 		"intl-messageformat": "^10.5.0",
 		"next": "^14.2.5",
 		"next-themes": "^0.2.1",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
-		"react-responsive": "^10.0.0"
+		"react-responsive": "^10.0.0",
+		"react-router-dom": "^6.26.0"
 	},
 	"devDependencies": {
 		"@next/eslint-plugin-next": "^14.2.5",
