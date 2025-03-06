@@ -6,6 +6,6 @@ export const pt_serif_font = PT_Serif({
 });
 
 export const Styles = {
-  subheading: "text-blue-900 text-2xl font-semibold",
-  cardTitle: "text-blue-900 text-lg font-semibold",
+  subheading: "text-indigo-900 text-2xl font-semibold",
+  cardTitle: "text-indigo-900 text-lg font-semibold",
 };

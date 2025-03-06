@@ -16,7 +16,7 @@ export default function MyChartInfo() {
           src="https://cd.trihealth.com/-/media/trihealth-new/home-page/phone2.png?h=524&iar=0&w=384&hash=8CAE7283793EA8452F27E579AE5D1676"
         />
       </div>
-      <div className="bg-gradient-to-b from-neutral-950 to-blue-900 pb-4">
+      <div className="bg-gradient-to-b from-neutral-950 to-indigo-900 pb-4">
         <div className="h-44" />
         <Divider className="" style={{ backgroundColor: "gray" }} />
         <h2
@@ -33,7 +33,7 @@ export default function MyChartInfo() {
         </p>
         <div className="p-3">
           <Button
-            className="rounded-md bg-blue-600 border-2 border-blue-400 text-white w-full"
+            className="rounded-md bg-indigo-600 border-2 border-indigo-400 text-white w-full"
             size="lg"
           >
             Set up account

@@ -12,7 +12,7 @@ export default function GetCareNow() {
         radius="none"
         src="https://cd.trihealth.com/-/media/trihealth-new/home-page/home-page-nurse-woman-900.png?h=319&iar=0&w=900&hash=A34BB88BC07A4DF7248FABA1AA3D9866"
       />
-      <div className="bg-blue-900">
+      <div className="bg-indigo-900">
         <h3
           className={`${"pt-3 mx-3 text-white text-xl"} ${pt_serif_font.className}`}
           style={{ fontWeight: 700 }}

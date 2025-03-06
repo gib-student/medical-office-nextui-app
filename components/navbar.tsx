@@ -100,7 +100,7 @@ export const Navbar = () => {
               <Link
                 className={index === 0 ? "mt-3" : ""}
                 color="foreground"
-                href="#"
+                href={item.href}
                 size="md"
               >
                 <strong>{item.label}</strong>

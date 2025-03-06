@@ -12,7 +12,7 @@ export default function ServicesAndSupportInfo() {
       </div>
       <div className="col-start-2 col-span-11 row-start-6 row-span-9 bg-white rounded-s-2xl z-10 p-5">
         <h3
-          className={`${"text-xl text-blue-900"} ${pt_serif_font.className}`}
+          className={`${"text-xl text-indigo-900"} ${pt_serif_font.className}`}
           style={{ fontWeight: 700 }}
         >
           Medical and holistic services and support to take control of your
