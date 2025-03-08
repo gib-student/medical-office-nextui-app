@@ -110,7 +110,7 @@ export default function SecondNav() {
         >
           <Button
             fullWidth
-            className="p-11 rounded-lg relative capitalize text-md font-bold text-blue-700"
+            className="p-11 rounded-lg relative capitalize text-md font-bold text-indigo-700"
             variant="light"
           >
             <SecondNavIcon iconName={item.id.toString()} />

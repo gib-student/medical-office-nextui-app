@@ -30,7 +30,7 @@ export default function Hero() {
           true needs to help you enjoy your highest quality of life.
         </h4>
         <Button
-          className="ml-3 mb-24 text-xl bg-gradient-to-tr from-blue-800 to-cyan-500"
+          className="ml-3 mb-24 text-xl bg-gradient-to-tr from-indigo-800 to-cyan-500"
           color="primary"
           radius="md"
           size="lg"

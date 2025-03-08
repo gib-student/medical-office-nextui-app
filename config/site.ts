@@ -6,7 +6,7 @@ export const siteConfig = {
   navItems: [
     {
       label: "MyChart Login",
-      href: "/mychartlogin"
+      href: "/myChartLogin"
     },
     {
       label: "Pay a Bill",

@@ -44,7 +44,7 @@ export default function FeaturedServicesCard({
           <div className="w-0.5">
             <Button
               isIconOnly
-              className="absolute right-4 bg-blue-900"
+              className="absolute right-4 bg-indigo-900"
               radius="full"
               onPress={toggleDescVisibility}
             >
