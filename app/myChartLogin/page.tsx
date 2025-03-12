@@ -1,15 +1,9 @@
 "use client";
 
-import { Button } from "@heroui/button";
+import { Link, Button } from "@heroui/react";
 import { pt_serif_font } from "../../components/styles";
-import { useRouter } from "next/navigation";
 
 export default function MyChartLoginPage() {
-  function handler(): void {
-    const router = useRouter();
-
-  }
-
   return (
     <>
       <header
@@ -35,15 +29,22 @@ export default function MyChartLoginPage() {
       </header>
       <div className="ml-4 my-6">
         <Button
+          showAnchorIcon
+          as={Link}
           className="bg-indigo-950 text-white rounded-lg text-lg mb-5"
           size="lg"
-          onPress={handler}
+          variant="solid"
+          href="/myChartLogin/login"
         >
           Log into MyChart
         </Button>
         <Button
+          showAnchorIcon
+          as={Link}
           className="bg-indigo-950 text-white rounded-lg text-lg"
           size="lg"
+          variant="solid"
+          href="./newAccount"
         >
           Create a New Account
         </Button>
