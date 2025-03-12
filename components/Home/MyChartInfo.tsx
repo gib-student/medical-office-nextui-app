@@ -1,7 +1,7 @@
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/divider";
+import { Image } from "@heroui/image";
+import { Link } from "@heroui/link";
 
 import { pt_serif_font } from "../styles";
 

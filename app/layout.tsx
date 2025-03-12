@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/Footer";
+import { Button } from "@heroui/button";
 
 export const metadata: Metadata = {
   title: {
@@ -46,6 +47,11 @@ export default function RootLayout({
             <Navbar />
             <main className="">{children}</main>
             <Footer />
+            <div className="fixed bottom-0 right-0 left-0 bg-white p-2 z-50">
+              <Button className="rounded-md bg-indigo-900 text-white w-full">
+                Get Care Now
+              </Button>
+            </div>
           </div>
         </Providers>
       </body>

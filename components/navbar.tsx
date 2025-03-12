@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
-import { Divider } from "@nextui-org/divider";
-import { Input } from "@nextui-org/input";
+import { Divider } from "@heroui/divider";
+import { Input } from "@heroui/input";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -10,10 +10,10 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Kbd } from "@nextui-org/kbd";
-import { Link } from "@nextui-org/link";
-import { link as linkStyles } from "@nextui-org/theme";
+} from "@heroui/navbar";
+import { Kbd } from "@heroui/kbd";
+import { Link } from "@heroui/link";
+import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 
 import { siteConfig } from "@/config/site";

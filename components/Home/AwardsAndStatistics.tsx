@@ -1,6 +1,6 @@
-import { Image } from "@nextui-org/image";
-import { Divider } from "@nextui-org/divider";
-import { Link } from "@nextui-org/link";
+import { Image } from "@heroui/image";
+import { Divider } from "@heroui/divider";
+import { Link } from "@heroui/link";
 
 import { GoldStandardIcon } from "../icons";
 import { pt_serif_font } from "../styles";

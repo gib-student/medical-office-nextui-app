@@ -1,5 +1,5 @@
-import { Button } from "@nextui-org/button";
-import { Image } from "@nextui-org/image";
+import { Button } from "@heroui/button";
+import { Image } from "@heroui/image";
 
 import { pt_serif_font } from "../styles";
 
