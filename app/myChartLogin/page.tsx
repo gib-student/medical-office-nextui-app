@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { pt_serif_font } from "../../components/styles";
 import { useRouter } from "next/navigation";
 
 export default function MyChartLoginPage() {
   function handler(): void {
     const router = useRouter();
-    
+
   }
 
   return (
