@@ -34,7 +34,7 @@ export default function MyChartLoginPage() {
           className="bg-indigo-950 text-white rounded-lg text-lg mb-5"
           size="lg"
           variant="solid"
-          href="/myChartLogin/login"
+          href="/login"
         >
           Log into MyChart
         </Button>
@@ -44,7 +44,7 @@ export default function MyChartLoginPage() {
           className="bg-indigo-950 text-white rounded-lg text-lg"
           size="lg"
           variant="solid"
-          href="./newAccount"
+          href="/newAccount"
         >
           Create a New Account
         </Button>
