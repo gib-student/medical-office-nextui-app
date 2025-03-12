@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 
 import FeaturedServices from "@/components/Home/FeaturedServices";
 import GetCareNow from "@/components/Home/GetCareNow";
@@ -20,12 +20,6 @@ export default function Home() {
       <ServicesAndSupportInfo />
       <MyChartInfo />
       <AwardsAndStatistics />
-      <div className="h-14" />
-      <div className="fixed bottom-0 right-0 left-0 bg-white p-2 z-50">
-        <Button className="rounded-md bg-indigo-900 text-white w-full">
-          Get Care Now
-        </Button>
-      </div>
     </>
   );
 }

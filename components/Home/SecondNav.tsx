@@ -1,10 +1,10 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import {
   Dropdown,
   DropdownItem,
   DropdownTrigger,
   DropdownMenu,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 import { useState, useMemo } from "react";
 
 import { SecondNavIcon } from "../icons";
