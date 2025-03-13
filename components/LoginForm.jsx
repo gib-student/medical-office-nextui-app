@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useState } from "react";
 import {
@@ -56,15 +55,15 @@ export default function LoginForm() {
       return;
     }
 
-    if (data.terms !== "true") {
-      setErrors({terms: "Please accept the terms"});
-
-      return;
-    }
-
     // Clear errors and submit
     setErrors({});
     setSubmitted(data);
+  };
+
+  const handleSignIn = () => {
+    // Check database for login information
+    // If valid, redirect to dashboard
+    // If invalid, show error message
   };
 
   return (
@@ -88,26 +87,8 @@ export default function LoginForm() {
           labelPlacement="outside"
           name="name"
           placeholder="Enter your name"
-          className="border-2"
+          className=""
         />
-
-        <Input
-          isRequired
-          errorMessage={({validationDetails}) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your email";
-            }
-            if (validationDetails.typeMismatch) {
-              return "Please enter a valid email address";
-            }
-          }}
-          label="Email"
-          labelPlacement="outside"
-          name="email"
-          placeholder="Enter your email"
-          type="email"
-        />
-
         <Input
           isRequired
           errorMessage={getPasswordError(password)}
@@ -120,52 +101,19 @@ export default function LoginForm() {
           value={password}
           onValueChange={setPassword}
         />
-
-        <Select
-          isRequired
-          label="Country"
-          labelPlacement="outside"
-          name="country"
-          placeholder="Select country"
-        >
-          <SelectItem key="ar">Argentina</SelectItem>
-          <SelectItem key="us">United States</SelectItem>
-          <SelectItem key="ca">Canada</SelectItem>
-          <SelectItem key="uk">United Kingdom</SelectItem>
-          <SelectItem key="au">Australia</SelectItem>
-        </Select>
-
-        <Checkbox
-          isRequired
-          classNames={{
-            label: "text-small",
-          }}
-          isInvalid={!!errors.terms}
-          name="terms"
-          validationBehavior="aria"
-          value="true"
-          onValueChange={() => setErrors((prev) => ({...prev, terms: undefined}))}
-        >
-          I agree to the terms and conditions
-        </Checkbox>
-
         {errors.terms && <span className="text-danger text-small">{errors.terms}</span>}
 
         <div className="flex gap-4">
           <Button className="w-full" color="primary" type="submit">
-            Submit
-          </Button>
-          <Button type="reset" variant="bordered">
-            Reset
+            Sign In
           </Button>
         </div>
       </div>
-
-      {submitted && (
+      {/* {submitted && (
         <div className="text-small text-default-500 mt-4">
           Submitted data: <pre>{JSON.stringify(submitted, null, 2)}</pre>
         </div>
-      )}
+      )} */}
     </Form>
   );
 }
