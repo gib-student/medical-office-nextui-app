@@ -3,8 +3,11 @@
 import LoginForm from "@/components/LoginForm";
 import { db } from "@/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   // Query for the user
   const getPatientID = async (username: string, password: string) => {
     const usersRef = collection(db, "users");
