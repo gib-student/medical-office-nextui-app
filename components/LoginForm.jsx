@@ -10,10 +10,11 @@ import {
   Button,
 } from "@heroui/react";
 
-export default function LoginForm() {
+export default function LoginForm({handleLogin}) {
+  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [submitted, setSubmitted] = React.useState(null);
   const [errors, setErrors] = React.useState({});
+  const [isSubmitting, setIsSubmitting] = React.useState(false); // Flag to prevent multiple submissions
 
   // Real-time password validation
   const getPasswordError = (value) => {
@@ -32,6 +33,9 @@ export default function LoginForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true);
+    console.log("Form submitted"); // Add logging here
     const data = Object.fromEntries(new FormData(e.currentTarget));
 
     // Custom validation checks
@@ -45,32 +49,31 @@ export default function LoginForm() {
     }
 
     // Username validation
-    if (data.name === "admin") {
-      newErrors.name = "Nice try! Choose a different username";
+    if (data.username === "admin") {
+      newErrors.username = "Nice try! Choose a different username";
+    }
+    else if (data.username.length < 4) {
+      newErrors.username = "Username must be 4 characters or more";
     }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-
+      setIsSubmitting(false); // Reset the flag
       return;
     }
 
     // Clear errors and submit
     setErrors({});
-    setSubmitted(data);
+    handleLogin(data.username, data.password);
+    setIsSubmitting(false); // Reset the flag after submission
   };
 
-  const handleSignIn = () => {
-    // Check database for login information
-    // If valid, redirect to dashboard
-    // If invalid, show error message
-  };
+
 
   return (
     <Form
       className="w-full justify-center items-center space-y-4"
       validationErrors={errors}
-      onReset={() => setSubmitted(null)}
       onSubmit={onSubmit}
     >
       <div className="flex flex-col gap-4 max-w-md">
@@ -78,16 +81,18 @@ export default function LoginForm() {
           isRequired
           errorMessage={({validationDetails}) => {
             if (validationDetails.valueMissing) {
-              return "Please enter your name";
+              return "Please enter your username";
             }
 
             return errors.name;
           }}
-          label="Name"
+          label="Username"
           labelPlacement="outside"
-          name="name"
-          placeholder="Enter your name"
-          className=""
+          name="username"
+          placeholder="Enter your username"
+          type="username"
+          value={username}
+          onValueChange={setUsername}
         />
         <Input
           isRequired
