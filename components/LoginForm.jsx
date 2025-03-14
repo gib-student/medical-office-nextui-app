@@ -76,13 +76,6 @@ export default function LoginForm({ handleLogin }) {
       <div className="flex flex-col gap-4 max-w-md">
         <Input
           isRequired
-          validate={(value) => {
-            if (value.length < 3) {
-              return "Username must be at least 3 characters long";
-            }
-
-            return value === "admin" ? "Nice try!" : null;
-          }}
           label="Username"
           labelPlacement="outside"
           name="username"
@@ -90,7 +83,7 @@ export default function LoginForm({ handleLogin }) {
           type="username"
           value={username}
           onValueChange={setUsername}
-          className=""
+          className="border-solid border-2 border-gray-500 rounded-md"
         />
         <Input
           isRequired
@@ -103,6 +96,7 @@ export default function LoginForm({ handleLogin }) {
           type="password"
           value={password}
           onValueChange={setPassword}
+          className="border-solid border-2 border-gray-500 rounded-md"
         />
         {errors.terms && (
           <span className="text-danger text-small">{errors.terms}</span>
