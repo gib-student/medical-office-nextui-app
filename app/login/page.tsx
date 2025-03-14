@@ -3,7 +3,7 @@
 import LoginForm from "@/components/LoginForm";
 import { db } from "@/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,14 +27,33 @@ export default function LoginPage() {
     }
   };
 
+  const getPatientData = async (patientID: string) => {
+    const patientsRef = collection(db, "patients");
+    const q = query(patientsRef, where("patient_id", "==", patientID));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      console.log("No matching documents.");
+      return;
+    } else {
+      const patientData = querySnapshot.docs[0].data();
+      return patientData;
+    }
+  };
+
   // Call this function when they click the "Sign In" button
   const handleLogin = async (username: string, password: string) => {
     const patientID = await getPatientID(username, password);
     if (patientID) {
       console.log("User authenticated:", patientID);
+      // Store the patient information in local storage for later use
+      const patientData = await getPatientData(patientID);
+      localStorage.setItem("patientID", patientID);
       // Redirect to the dashboard or another page
+      router.push("/dashboard");
     } else {
       console.log("Authentication failed.");
+      // Handle authentication failure (e.g., show an error message)
+      alert("Invalid username or password. Please try again.");
     }
   };
 

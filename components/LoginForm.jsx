@@ -10,7 +10,7 @@ import {
   Button,
 } from "@heroui/react";
 
-export default function LoginForm({handleLogin}) {
+export default function LoginForm({ handleLogin }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState({});
@@ -51,8 +51,7 @@ export default function LoginForm({handleLogin}) {
     // Username validation
     if (data.username === "admin") {
       newErrors.username = "Nice try! Choose a different username";
-    }
-    else if (data.username.length < 4) {
+    } else if (data.username.length < 4) {
       newErrors.username = "Username must be 4 characters or more";
     }
 
@@ -68,8 +67,6 @@ export default function LoginForm({handleLogin}) {
     setIsSubmitting(false); // Reset the flag after submission
   };
 
-
-
   return (
     <Form
       className="w-full justify-center items-center space-y-4"
@@ -79,12 +76,12 @@ export default function LoginForm({handleLogin}) {
       <div className="flex flex-col gap-4 max-w-md">
         <Input
           isRequired
-          errorMessage={({validationDetails}) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your username";
+          validate={(value) => {
+            if (value.length < 3) {
+              return "Username must be at least 3 characters long";
             }
 
-            return errors.name;
+            return value === "admin" ? "Nice try!" : null;
           }}
           label="Username"
           labelPlacement="outside"
@@ -93,6 +90,7 @@ export default function LoginForm({handleLogin}) {
           type="username"
           value={username}
           onValueChange={setUsername}
+          className=""
         />
         <Input
           isRequired
@@ -106,7 +104,9 @@ export default function LoginForm({handleLogin}) {
           value={password}
           onValueChange={setPassword}
         />
-        {errors.terms && <span className="text-danger text-small">{errors.terms}</span>}
+        {errors.terms && (
+          <span className="text-danger text-small">{errors.terms}</span>
+        )}
 
         <div className="flex gap-4">
           <Button className="w-full" color="primary" type="submit">
