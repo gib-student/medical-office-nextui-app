@@ -1,0 +1,122 @@
+[debug] [2025-03-14T08:12:32.096Z] ----------------------------------------------------------------------
+[debug] [2025-03-14T08:12:32.099Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trevo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-03-14T08:12:32.100Z] CLI Version:   13.6.0
+[debug] [2025-03-14T08:12:32.100Z] Platform:      win32
+[debug] [2025-03-14T08:12:32.100Z] Node Version:  v20.14.0
+[debug] [2025-03-14T08:12:32.100Z] Time:          Fri Mar 14 2025 02:12:32 GMT-0600 (Mountain Daylight Time)
+[debug] [2025-03-14T08:12:32.100Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-14T08:12:32.106Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-03-14T08:12:32.368Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-14T08:12:32.369Z] > authorizing via signed-in user (trevorgibb7@gmail.com)
+[debug] [2025-03-14T08:12:32.369Z] [iam] checking project medical-office-nextui-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-03-14T08:12:32.370Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:12:32.372Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:12:32.372Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:32.576Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:12:32.577Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:32.577Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions [none]
+[debug] [2025-03-14T08:12:32.577Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions x-goog-quota-user=projects/medical-office-nextui-app
+[debug] [2025-03-14T08:12:32.577Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-14T08:12:32.860Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-03-14T08:12:32.860Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2025-03-14T08:12:33.097Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions 401
+[debug] [2025-03-14T08:12:33.097Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"ACCESS_TOKEN_TYPE_UNSUPPORTED","metadata":{"method":"google.cloudresourcemanager.v1.Projects.TestIamPermissions","service":"cloudresourcemanager.googleapis.com"}}]}}
+[debug] [2025-03-14T08:12:33.098Z] [iam] error while checking permissions, command may fail: FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2025-03-14T08:12:33.099Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:12:33.099Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:12:33.099Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:33.162Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:12:33.162Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:33.163Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app [none]
+[debug] [2025-03-14T08:12:33.620Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app 401
+[debug] [2025-03-14T08:12:33.620Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED"}}
+[debug] [2025-03-14T08:12:33.620Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
+[debug] [2025-03-14T08:12:58.295Z] ----------------------------------------------------------------------
+[debug] [2025-03-14T08:12:58.298Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trevo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-03-14T08:12:58.298Z] CLI Version:   13.6.0
+[debug] [2025-03-14T08:12:58.299Z] Platform:      win32
+[debug] [2025-03-14T08:12:58.299Z] Node Version:  v20.14.0
+[debug] [2025-03-14T08:12:58.299Z] Time:          Fri Mar 14 2025 02:12:58 GMT-0600 (Mountain Daylight Time)
+[debug] [2025-03-14T08:12:58.299Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-14T08:12:58.381Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-14T08:12:58.381Z] > authorizing via signed-in user (trevorgibb7@gmail.com)
+[debug] [2025-03-14T08:12:58.381Z] [iam] checking project medical-office-nextui-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-03-14T08:12:58.383Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:12:58.385Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:12:58.385Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:58.620Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:12:58.621Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:58.621Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions [none]
+[debug] [2025-03-14T08:12:58.621Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions x-goog-quota-user=projects/medical-office-nextui-app
+[debug] [2025-03-14T08:12:58.621Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-14T08:12:58.815Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions 401
+[debug] [2025-03-14T08:12:58.815Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"ACCESS_TOKEN_TYPE_UNSUPPORTED","metadata":{"service":"cloudresourcemanager.googleapis.com","method":"google.cloudresourcemanager.v1.Projects.TestIamPermissions"}}]}}
+[debug] [2025-03-14T08:12:58.816Z] [iam] error while checking permissions, command may fail: FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2025-03-14T08:12:58.816Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:12:58.817Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:12:58.817Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:58.885Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:12:58.885Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:12:58.886Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app [none]
+[debug] [2025-03-14T08:12:59.010Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app 401
+[debug] [2025-03-14T08:12:59.010Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED"}}
+[debug] [2025-03-14T08:12:59.011Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
+[debug] [2025-03-14T08:14:22.958Z] ----------------------------------------------------------------------
+[debug] [2025-03-14T08:14:22.961Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trevo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-03-14T08:14:22.962Z] CLI Version:   13.34.0
+[debug] [2025-03-14T08:14:22.962Z] Platform:      win32
+[debug] [2025-03-14T08:14:22.962Z] Node Version:  v20.14.0
+[debug] [2025-03-14T08:14:22.962Z] Time:          Fri Mar 14 2025 02:14:22 GMT-0600 (Mountain Daylight Time)
+[debug] [2025-03-14T08:14:22.962Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-14T08:14:23.236Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-14T08:14:23.236Z] > authorizing via signed-in user (trevorgibb7@gmail.com)
+[debug] [2025-03-14T08:14:23.236Z] [iam] checking project medical-office-nextui-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-03-14T08:14:23.238Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.238Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.238Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:14:23.240Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:14:23.240Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.421Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:14:23.421Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.421Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions [none]
+[debug] [2025-03-14T08:14:23.422Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions x-goog-quota-user=projects/medical-office-nextui-app
+[debug] [2025-03-14T08:14:23.422Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-14T08:14:23.610Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions 401
+[debug] [2025-03-14T08:14:23.610Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"ACCESS_TOKEN_TYPE_UNSUPPORTED","metadata":{"method":"google.cloudresourcemanager.v1.Projects.TestIamPermissions","service":"cloudresourcemanager.googleapis.com"}}]}}
+[debug] [2025-03-14T08:14:23.610Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2025-03-14T08:14:23.611Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.611Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.611Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:14:23.611Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:14:23.611Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.676Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:14:23.676Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.677Z] [iam] error while checking permissions, command may fail: Request to https://cloudresourcemanager.googleapis.com/v1/projects/medical-office-nextui-app:testIamPermissions had HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2025-03-14T08:14:23.677Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.678Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:23.678Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:14:23.678Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:14:23.678Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.745Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:14:23.745Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:23.746Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app [none]
+[debug] [2025-03-14T08:14:24.074Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app 401
+[debug] [2025-03-14T08:14:24.074Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED"}}
+[debug] [2025-03-14T08:14:24.074Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2025-03-14T08:14:24.074Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:24.074Z] Checked if tokens are valid: false, expires at: 1720632822562
+[debug] [2025-03-14T08:14:24.074Z] > refreshing access token with scopes: []
+[debug] [2025-03-14T08:14:24.074Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-14T08:14:24.074Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:24.140Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-03-14T08:14:24.140Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-14T08:14:24.140Z] Request to https://firebase.googleapis.com/v1beta1/projects/medical-office-nextui-app had HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
