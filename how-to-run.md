@@ -10,4 +10,3 @@ In the next.config.js file,
 1. set 'output' to 'export'
 2. run 'npx next build'
 3. run 'firebase deploy'
-   output: 'export',
