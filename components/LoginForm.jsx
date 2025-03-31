@@ -76,10 +76,10 @@ export default function LoginForm({ handleLogin }) {
       <div className="flex flex-col gap-4 max-w-md">
         <Input
           isRequired
-          label="Username"
+          label="Email"
           labelPlacement="outside"
           name="username"
-          placeholder="Enter your username"
+          placeholder="Enter your email"
           type="username"
           value={username}
           onValueChange={setUsername}
