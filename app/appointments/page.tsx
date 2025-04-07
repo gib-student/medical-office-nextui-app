@@ -7,6 +7,47 @@ import { Button } from "@heroui/button";
 export default function AppointmentsPage() {
   const [providers, setProviders] = useState<any[]>([]); // State to store providers
   const [loading, setLoading] = useState<boolean>(true); // State to manage loading
+  const [appointments, setAppointments] = useState<any[]>([]); // State to store appointments
+
+  // Function that checks if the user has any appointments in the database
+  async function checkUserAppointments() {
+    try {
+      // Step 1: Check if the user is in local storage
+      const user = localStorage.getItem("user");
+      if (!user) {
+        console.log("No user found in local storage.");
+        return null;
+      }
+      const userData = JSON.parse(user);
+      if (!userData || !userData.uid) {
+        console.log("Invalid user data found in local storage.");
+        return null;
+      }
+      console.log("User data found in local storage:", userData);
+
+      // Step 2: Query the "appointments" collection for matching patient_id
+      const appointmentsRef = collection(db, "appointments");
+      const appointmentsQuery = query(
+        appointmentsRef,
+        where("patient_id", "==", userData.uid)
+      );
+      const appointmentsSnapshot = await getDocs(appointmentsQuery);
+
+      if (!appointmentsSnapshot.empty) {
+        const userAppointments = appointmentsSnapshot.docs.map((doc) =>
+          doc.data()
+        );
+        console.log("Appointments found:", userAppointments);
+        setAppointments(userAppointments); // Save appointments in global state
+      } else {
+        console.log("No appointments found for this user.");
+        setAppointments([]); // Set global state to an empty array
+      }
+    } catch (error) {
+      console.error("Error checking user appointments:", error);
+      setAppointments([]); // Handle errors by setting global state to an empty array
+    }
+  }
 
   // Function that checks if the user has a provider in the database
   async function checkUserProvider() {
@@ -77,11 +118,21 @@ export default function AppointmentsPage() {
     fetchProviders();
   }, []);
 
+  // Function to handle appointment scheduling
+  const handleScheduleAppointment = (providerId: string) => {
+    console.log("Scheduling appointment with provider ID:", providerId);
+    // Go to scheduling appointment page
+  };
+
   return (
     <>
       <h1 className="text-3xl font-bold text-center mb-5">
         MyChart Appointments
       </h1>
+
+      <h2 className="text-xl text-left px-4">My Appointments</h2>
+      {/* Check if the user has any appointments */}
+
       <h2 className="text-xl text-left px-4">Schedule an appointment</h2>
       {loading ? (
         <p className="text-center">Loading providers...</p>
