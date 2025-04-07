@@ -107,8 +107,20 @@ export default function AppointmentsPage() {
     }
   }
 
+  // Use useEffect to call checkUserAppointments when the page loads
+  useEffect(() => {
+    async function fetchAppointments() {
+      setLoading(true);
+      const fetchedAppointments = await checkUserAppointments();
+      setAppointments(fetchedAppointments || []);
+      setLoading(false);
+    }
+    fetchAppointments();
+  });
+
   // Use useEffect to call checkUserProvider when the page loads
   useEffect(() => {
+    // Function to fetch providers when the component mounts
     async function fetchProviders() {
       setLoading(true);
       const fetchedProviders = await checkUserProvider();
