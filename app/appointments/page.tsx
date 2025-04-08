@@ -5,31 +5,50 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { Button } from "@heroui/button";
 
 export default function AppointmentsPage() {
+  const [user, setUser] = useState<any>(null); // Global state to store user data
   const [providers, setProviders] = useState<any[]>([]); // State to store providers
-  const [loading, setLoading] = useState<boolean>(true); // State to manage loading
   const [appointments, setAppointments] = useState<any[]>([]); // State to store appointments
+  const [apptsLoading, setApptsLoading] = useState<boolean>(true); // State to manage appointment loading
+  const [providersLoading, setProvidersLoading] = useState<boolean>(true); // State to manage loading
 
-  // Function that checks if the user has any appointments in the database
-  async function checkUserAppointments() {
+  // Function to fetch user data from local storage
+  async function fetchUser() {
     try {
-      // Step 1: Check if the user is in local storage
       const user = localStorage.getItem("user");
       if (!user) {
         console.log("No user found in local storage.");
+        setUser(null);
         return null;
       }
       const userData = JSON.parse(user);
       if (!userData || !userData.uid) {
         console.log("Invalid user data found in local storage.");
+        setUser(null);
         return null;
       }
       console.log("User data found in local storage:", userData);
+      setUser(userData);
+      return userData;
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setUser(null);
+      return null;
+    }
+  }
 
-      // Step 2: Query the "appointments" collection for matching patient_id
+  // Function that checks if the user has any appointments in the database
+  async function checkUserAppointments() {
+    try {
+      if (!user || !user.uid) {
+        console.log("No valid user data available.");
+        setAppointments([]);
+        return;
+      }
+
       const appointmentsRef = collection(db, "appointments");
       const appointmentsQuery = query(
         appointmentsRef,
-        where("patient_id", "==", userData.uid)
+        where("patient_id", "==", user.uid)
       );
       const appointmentsSnapshot = await getDocs(appointmentsQuery);
 
@@ -38,50 +57,41 @@ export default function AppointmentsPage() {
           doc.data()
         );
         console.log("Appointments found:", userAppointments);
-        setAppointments(userAppointments); // Save appointments in global state
+        setAppointments(userAppointments);
       } else {
         console.log("No appointments found for this user.");
-        setAppointments([]); // Set global state to an empty array
+        setAppointments([]);
       }
     } catch (error) {
       console.error("Error checking user appointments:", error);
-      setAppointments([]); // Handle errors by setting global state to an empty array
+      setAppointments([]);
     }
   }
 
   // Function that checks if the user has a provider in the database
   async function checkUserProvider() {
     try {
-      // Step 1: Check if the user is in local storage
-      const user = localStorage.getItem("user");
-      if (!user) {
-        console.log("No user found in local storage.");
-        return null;
+      if (!user || !user.uid) {
+        console.log("No valid user data available.");
+        setProviders([]);
+        return;
       }
-      const userData = JSON.parse(user);
-      if (!userData || !userData.uid) {
-        console.log("Invalid user data found in local storage.");
-        return null;
-      }
-      console.log("User data found in local storage:", userData);
 
-      // Step 2: Use the user ID to query the database for the patient info
       const patientsRef = collection(db, "patients");
-      const patientQuery = query(patientsRef, where("uid", "==", userData.uid));
+      const patientQuery = query(patientsRef, where("uid", "==", user.uid));
       const patientSnapshot = await getDocs(patientQuery);
 
       if (!patientSnapshot.empty) {
         const patientData = patientSnapshot.docs[0].data();
         console.log("Patient found:", patientData);
 
-        // Step 3: Now that we have the patient, check for their provider
         const doctorIds = patientData.providers || [];
         if (doctorIds.length === 0) {
           console.log("No providers found for this patient.");
-          return [];
+          setProviders([]);
+          return;
         }
 
-        // Step 4: Cross-reference the "doctors" collection with the provider IDs
         const doctorsRef = collection(db, "doctors");
         const doctorQuery = query(
           doctorsRef,
@@ -92,43 +102,52 @@ export default function AppointmentsPage() {
         if (!doctorSnapshot.empty) {
           const providers = doctorSnapshot.docs.map((doc) => doc.data());
           console.log("Providers found:", providers);
-          return providers; // Return the providers found in the doctors collection
+          setProviders(providers);
         } else {
           console.log("No matching providers found in the doctors collection.");
-          return [];
+          setProviders([]);
         }
       } else {
         console.log("No patient found with the given UID.");
-        return [];
+        setProviders([]);
       }
     } catch (error) {
       console.error("Error checking user provider:", error);
-      return [];
+      setProviders([]);
     }
   }
 
-  // Use useEffect to call checkUserAppointments when the page loads
+  // Use useEffect to fetch user data when the page loads
   useEffect(() => {
-    async function fetchAppointments() {
-      setLoading(true);
-      const fetchedAppointments = await checkUserAppointments();
-      setAppointments(fetchedAppointments || []);
-      setLoading(false);
+    async function initializeUser() {
+      await fetchUser();
     }
-    fetchAppointments();
+    initializeUser();
   }, []);
 
-  // Use useEffect to call checkUserProvider when the page loads
+  // Use useEffect to call checkUserAppointments when user data is available
   useEffect(() => {
-    // Function to fetch providers when the component mounts
-    async function fetchProviders() {
-      setLoading(true);
-      const fetchedProviders = await checkUserProvider();
-      setProviders(fetchedProviders || []);
-      setLoading(false);
+    if (user) {
+      async function fetchAppointments() {
+        setApptsLoading(true);
+        await checkUserAppointments();
+        setApptsLoading(false);
+      }
+      fetchAppointments();
     }
-    fetchProviders();
-  }, []);
+  }, [user]);
+
+  // Use useEffect to call checkUserProvider when user data is available
+  useEffect(() => {
+    if (user) {
+      async function fetchProviders() {
+        setProvidersLoading(true);
+        await checkUserProvider();
+        setProvidersLoading(false);
+      }
+      fetchProviders();
+    }
+  }, [user]);
 
   // Function to handle appointment scheduling
   const handleScheduleAppointment = (providerId: string) => {
@@ -138,14 +157,17 @@ export default function AppointmentsPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center">MyChart Appointments</h1>
+      <h1 className="text-3xl font-bold text-center pb-6">
+        MyChart Appointments
+      </h1>
 
-      <div>
+      {/* Body */}
+      <div className="px-4 pb-4">
         {/* Appointments */}
         <div className="mb-5">
-          <h2 className="text-xl text-left">My Appointments</h2>
+          <h2 className="pb-2 text-xl text-left">My Appointments</h2>
           {/* Display appointments */}
-          {loading ? (
+          {apptsLoading ? (
             <p className="text-center">Loading appointments...</p>
           ) : appointments.length > 0 ? (
             <ul className="px-4">
@@ -163,8 +185,8 @@ export default function AppointmentsPage() {
 
         {/* Providers */}
         <div>
-          <h2 className="text-xl text-left">Schedule an appointment</h2>
-          {loading ? (
+          <h2 className="pb-2 text-xl text-left">Schedule an appointment</h2>
+          {providersLoading ? (
             <p className="text-center">Loading providers...</p>
           ) : providers.length > 0 ? (
             <ul className="px-4">
