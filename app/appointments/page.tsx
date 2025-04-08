@@ -182,10 +182,27 @@ export default function AppointmentsPage() {
           ) : appointments.length > 0 ? (
             <ul className="px-4">
               {appointments.map((appointment, index) => (
-                <li key={index} className="mb-2">
-                  {appointment.date} - {appointment.time} with{" "}
-                  {appointment.provider_name}
-                </li>
+                <Button key={index} className="mb-2">
+                  {new Date(
+                    appointment.appointment_date_time.seconds * 1000
+                  ).toLocaleDateString()}{" "}
+                  -{" "}
+                  {new Date(
+                    appointment.appointment_date_time.seconds * 1000
+                  ).toLocaleTimeString([], {
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}{" "}
+                  with{" Dr. "}
+                  {
+                    providers.find(
+                      (provider) => provider.doctor_id === appointment.doctor_id
+                    )?.first_name
+                  }{" "}
+                  {providers.find(
+                    (provider) => provider.doctor_id === appointment.doctor_id
+                  )?.last_name || "Unknown Provider"}
+                </Button>
               ))}
             </ul>
           ) : (
@@ -203,7 +220,7 @@ export default function AppointmentsPage() {
               {providers.map((provider, index) => (
                 <li key={index} className="mb-2">
                   <Button>
-                    {provider.first_name} {provider.last_name} -{" "}
+                    Dr. {provider.first_name} {provider.last_name} -{" "}
                     {provider.specialization}
                   </Button>
                 </li>

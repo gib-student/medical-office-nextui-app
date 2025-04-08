@@ -27,6 +27,7 @@
     "@react-aria/ssr": "3.9.4",
     "@react-aria/visually-hidden": "3.8.12",
     "clsx": "2.1.1",
+    "crypto-js": "^4.2.0",
     "firebase": "^11.4.0",
     "framer-motion": "^12.6.3",
     "intl-messageformat": "^10.5.0",
