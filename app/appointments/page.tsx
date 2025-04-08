@@ -116,7 +116,7 @@ export default function AppointmentsPage() {
       setLoading(false);
     }
     fetchAppointments();
-  });
+  }, []);
 
   // Use useEffect to call checkUserProvider when the page loads
   useEffect(() => {
@@ -138,30 +138,50 @@ export default function AppointmentsPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-5">
-        MyChart Appointments
-      </h1>
+      <h1 className="text-3xl font-bold text-center">MyChart Appointments</h1>
 
-      <h2 className="text-xl text-left px-4">My Appointments</h2>
-      {/* Check if the user has any appointments */}
+      <div>
+        {/* Appointments */}
+        <div className="mb-5">
+          <h2 className="text-xl text-left">My Appointments</h2>
+          {/* Display appointments */}
+          {loading ? (
+            <p className="text-center">Loading appointments...</p>
+          ) : appointments.length > 0 ? (
+            <ul className="px-4">
+              {appointments.map((appointment, index) => (
+                <li key={index} className="mb-2">
+                  {appointment.date} - {appointment.time} with{" "}
+                  {appointment.provider_name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-center">No appointments found.</p>
+          )}
+        </div>
 
-      <h2 className="text-xl text-left px-4">Schedule an appointment</h2>
-      {loading ? (
-        <p className="text-center">Loading providers...</p>
-      ) : providers.length > 0 ? (
-        <ul className="px-4">
-          {providers.map((provider, index) => (
-            <li key={index} className="mb-2">
-              <Button>
-                {provider.first_name} {provider.last_name} -{" "}
-                {provider.specialization}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center">No providers found.</p>
-      )}
+        {/* Providers */}
+        <div>
+          <h2 className="text-xl text-left">Schedule an appointment</h2>
+          {loading ? (
+            <p className="text-center">Loading providers...</p>
+          ) : providers.length > 0 ? (
+            <ul className="px-4">
+              {providers.map((provider, index) => (
+                <li key={index} className="mb-2">
+                  <Button>
+                    {provider.first_name} {provider.last_name} -{" "}
+                    {provider.specialization}
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-center">No providers found.</p>
+          )}
+        </div>
+      </div>
     </>
   );
 }
