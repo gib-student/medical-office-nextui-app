@@ -6,6 +6,7 @@ import { Button } from "@heroui/button";
 
 export default function AppointmentsPage() {
   const [user, setUser] = useState<any>(null); // Global state to store user data
+  const [patient, setPatient] = useState<any>(null); // State to store patient data
   const [providers, setProviders] = useState<any[]>([]); // State to store providers
   const [appointments, setAppointments] = useState<any[]>([]); // State to store appointments
   const [apptsLoading, setApptsLoading] = useState<boolean>(true); // State to manage appointment loading
@@ -18,20 +19,38 @@ export default function AppointmentsPage() {
       if (!user) {
         console.log("No user found in local storage.");
         setUser(null);
+        setPatient(null);
         return null;
       }
       const userData = JSON.parse(user);
       if (!userData || !userData.uid) {
         console.log("Invalid user data found in local storage.");
         setUser(null);
+        setPatient(null);
         return null;
       }
       console.log("User data found in local storage:", userData);
       setUser(userData);
+
+      // Fetch patient data
+      const patientsRef = collection(db, "patients");
+      const patientQuery = query(patientsRef, where("uid", "==", userData.uid));
+      const patientSnapshot = await getDocs(patientQuery);
+
+      if (!patientSnapshot.empty) {
+        const patientData = patientSnapshot.docs[0].data();
+        console.log("Patient data found:", patientData);
+        setPatient(patientData);
+      } else {
+        console.log("No patient data found for the user.");
+        setPatient(null);
+      }
+
       return userData;
     } catch (error) {
       console.error("Error fetching user data:", error);
       setUser(null);
+      setPatient(null);
       return null;
     }
   }
@@ -48,16 +67,16 @@ export default function AppointmentsPage() {
       const appointmentsRef = collection(db, "appointments");
       const appointmentsQuery = query(
         appointmentsRef,
-        where("patient_id", "==", user.uid)
+        where("patient_id", "==", patient.patient_id)
       );
       const appointmentsSnapshot = await getDocs(appointmentsQuery);
 
       if (!appointmentsSnapshot.empty) {
-        const userAppointments = appointmentsSnapshot.docs.map((doc) =>
+        const patientAppointments = appointmentsSnapshot.docs.map((doc) =>
           doc.data()
         );
-        console.log("Appointments found:", userAppointments);
-        setAppointments(userAppointments);
+        console.log("Appointments found:", patientAppointments);
+        setAppointments(patientAppointments);
       } else {
         console.log("No appointments found for this user.");
         setAppointments([]);
@@ -71,44 +90,32 @@ export default function AppointmentsPage() {
   // Function that checks if the user has a provider in the database
   async function checkUserProvider() {
     try {
-      if (!user || !user.uid) {
-        console.log("No valid user data available.");
+      if (!patient) {
+        console.log("No valid patient data available.");
         setProviders([]);
         return;
       }
 
-      const patientsRef = collection(db, "patients");
-      const patientQuery = query(patientsRef, where("uid", "==", user.uid));
-      const patientSnapshot = await getDocs(patientQuery);
+      const doctorIds = patient.providers || [];
+      if (doctorIds.length === 0) {
+        console.log("No providers found for this patient.");
+        setProviders([]);
+        return;
+      }
 
-      if (!patientSnapshot.empty) {
-        const patientData = patientSnapshot.docs[0].data();
-        console.log("Patient found:", patientData);
+      const doctorsRef = collection(db, "doctors");
+      const doctorQuery = query(
+        doctorsRef,
+        where("doctor_id", "in", doctorIds)
+      );
+      const doctorSnapshot = await getDocs(doctorQuery);
 
-        const doctorIds = patientData.providers || [];
-        if (doctorIds.length === 0) {
-          console.log("No providers found for this patient.");
-          setProviders([]);
-          return;
-        }
-
-        const doctorsRef = collection(db, "doctors");
-        const doctorQuery = query(
-          doctorsRef,
-          where("doctor_id", "in", doctorIds)
-        );
-        const doctorSnapshot = await getDocs(doctorQuery);
-
-        if (!doctorSnapshot.empty) {
-          const providers = doctorSnapshot.docs.map((doc) => doc.data());
-          console.log("Providers found:", providers);
-          setProviders(providers);
-        } else {
-          console.log("No matching providers found in the doctors collection.");
-          setProviders([]);
-        }
+      if (!doctorSnapshot.empty) {
+        const providers = doctorSnapshot.docs.map((doc) => doc.data());
+        console.log("Providers found:", providers);
+        setProviders(providers);
       } else {
-        console.log("No patient found with the given UID.");
+        console.log("No matching providers found in the doctors collection.");
         setProviders([]);
       }
     } catch (error) {
@@ -127,27 +134,30 @@ export default function AppointmentsPage() {
 
   // Use useEffect to call checkUserAppointments when user data is available
   useEffect(() => {
-    if (user) {
-      async function fetchAppointments() {
+    const fetchAppointments = async () => {
+      if (patient) {
         setApptsLoading(true);
         await checkUserAppointments();
         setApptsLoading(false);
       }
+    };
+
+    if (patient !== null) {
       fetchAppointments();
     }
-  }, [user]);
+  }, [patient]);
 
   // Use useEffect to call checkUserProvider when user data is available
   useEffect(() => {
-    if (user) {
-      async function fetchProviders() {
+    if (patient) {
+      const fetchProviders = async () => {
         setProvidersLoading(true);
         await checkUserProvider();
         setProvidersLoading(false);
-      }
+      };
       fetchProviders();
     }
-  }, [user]);
+  }, [patient]);
 
   // Function to handle appointment scheduling
   const handleScheduleAppointment = (providerId: string) => {
