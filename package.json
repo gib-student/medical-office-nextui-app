@@ -24,6 +24,7 @@
     "@heroui/switch": "2.2.14",
     "@heroui/system": "^2.4.12",
     "@heroui/theme": "^2.4.12",
+    "@internationalized/date": "^3.7.0",
     "@react-aria/ssr": "3.9.4",
     "@react-aria/visually-hidden": "3.8.12",
     "clsx": "2.1.1",
