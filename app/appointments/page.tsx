@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import CryptoJS from "crypto-js";
 import { db } from "@/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Button } from "@heroui/button";
 
 export default function AppointmentsPage() {
-  const [user, setUser] = useState<any>(null); // Global state to store user data
   const [patient, setPatient] = useState<any>(null); // State to store patient data
   const [providers, setProviders] = useState<any[]>([]); // State to store providers
   const [appointments, setAppointments] = useState<any[]>([]); // State to store appointments
@@ -15,41 +15,49 @@ export default function AppointmentsPage() {
   // Function to fetch user data from local storage
   async function fetchUser() {
     try {
-      const user = localStorage.getItem("user");
-      if (!user) {
-        console.log("No user found in local storage.");
-        setUser(null);
-        setPatient(null);
-        return null;
-      }
-      const userData = JSON.parse(user);
-      if (!userData || !userData.uid) {
-        console.log("Invalid user data found in local storage.");
-        setUser(null);
-        setPatient(null);
-        return null;
-      }
-      console.log("User data found in local storage:", userData);
-      setUser(userData);
+      const encryptedUser = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user="))
+        ?.split("=")[1];
 
-      // Fetch patient data
-      const patientsRef = collection(db, "patients");
-      const patientQuery = query(patientsRef, where("uid", "==", userData.uid));
-      const patientSnapshot = await getDocs(patientQuery);
+      if (encryptedUser) {
+        const bytes = CryptoJS.AES.decrypt(encryptedUser, "CSE499B");
+        const decryptedUser = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        console.log("Decrypted user data:", decryptedUser);
 
-      if (!patientSnapshot.empty) {
-        const patientData = patientSnapshot.docs[0].data();
-        console.log("Patient data found:", patientData);
-        setPatient(patientData);
+        if (!decryptedUser || !decryptedUser.uid) {
+          console.log("Invalid user data.");
+          setPatient(null);
+          return null;
+        }
+
+        console.log("User data found in local storage:", decryptedUser);
+
+        // Fetch patient data
+        const patientsRef = collection(db, "patients");
+        const patientQuery = query(
+          patientsRef,
+          where("uid", "==", decryptedUser.uid)
+        );
+        const patientSnapshot = await getDocs(patientQuery);
+
+        if (!patientSnapshot.empty) {
+          const patientData = patientSnapshot.docs[0].data();
+          console.log("Patient data found:", patientData);
+          setPatient(patientData);
+        } else {
+          console.log("No patient data found for the user.");
+          setPatient(null);
+        }
+
+        return decryptedUser;
       } else {
-        console.log("No patient data found for the user.");
+        console.log("No user found.");
         setPatient(null);
+        return null;
       }
-
-      return userData;
     } catch (error) {
       console.error("Error fetching user data:", error);
-      setUser(null);
       setPatient(null);
       return null;
     }
@@ -58,8 +66,8 @@ export default function AppointmentsPage() {
   // Function that checks if the user has any appointments in the database
   async function checkUserAppointments() {
     try {
-      if (!user || !user.uid) {
-        console.log("No valid user data available.");
+      if (!patient) {
+        console.log("No valid patient data available.");
         setAppointments([]);
         return;
       }
@@ -182,10 +190,27 @@ export default function AppointmentsPage() {
           ) : appointments.length > 0 ? (
             <ul className="px-4">
               {appointments.map((appointment, index) => (
-                <li key={index} className="mb-2">
-                  {appointment.date} - {appointment.time} with{" "}
-                  {appointment.provider_name}
-                </li>
+                <Button key={index} className="mb-2">
+                  {new Date(
+                    appointment.appointment_date_time.seconds * 1000
+                  ).toLocaleDateString()}{" "}
+                  -{" "}
+                  {new Date(
+                    appointment.appointment_date_time.seconds * 1000
+                  ).toLocaleTimeString([], {
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}{" "}
+                  with{" Dr. "}
+                  {
+                    providers.find(
+                      (provider) => provider.doctor_id === appointment.doctor_id
+                    )?.first_name
+                  }{" "}
+                  {providers.find(
+                    (provider) => provider.doctor_id === appointment.doctor_id
+                  )?.last_name || "Unknown Provider"}
+                </Button>
               ))}
             </ul>
           ) : (
@@ -203,7 +228,7 @@ export default function AppointmentsPage() {
               {providers.map((provider, index) => (
                 <li key={index} className="mb-2">
                   <Button>
-                    {provider.first_name} {provider.last_name} -{" "}
+                    Dr. {provider.first_name} {provider.last_name} -{" "}
                     {provider.specialization}
                   </Button>
                 </li>
