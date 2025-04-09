@@ -2,10 +2,20 @@
 import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
 import { db } from "@/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore"; // Add these imports
 import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
+import { useRouter } from "next/navigation";
 
 export default function AppointmentsPage() {
+  const router = useRouter();
   const [patient, setPatient] = useState<any>(null); // State to store patient data
   const [providers, setProviders] = useState<any[]>([]); // State to store providers
   const [appointments, setAppointments] = useState<any[]>([]); // State to store appointments
@@ -21,7 +31,20 @@ export default function AppointmentsPage() {
         ?.split("=")[1];
 
       if (encryptedUser) {
-        const bytes = CryptoJS.AES.decrypt(encryptedUser, "CSE499B");
+        // Fetch the encryption key from Firestore
+        const keyDocRef = doc(db, "encryptionKey", "9Qy70YeM1e66czakvXGr");
+        const keyDoc = await getDoc(keyDocRef);
+
+        if (!keyDoc.exists()) {
+          console.error("Encryption key document does not exist.");
+          setPatient(null);
+          return null;
+        }
+
+        const encryptionKey = keyDoc.data().key;
+
+        // Decrypt the user data
+        const bytes = CryptoJS.AES.decrypt(encryptedUser, encryptionKey);
         const decryptedUser = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         console.log("Decrypted user data:", decryptedUser);
 
@@ -187,36 +210,95 @@ export default function AppointmentsPage() {
           {/* Display appointments */}
           {apptsLoading ? (
             <p className="text-center">Loading appointments...</p>
-          ) : appointments.length > 0 ? (
+          ) : appointments.filter(
+              (appointment) => appointment.status === "planned"
+            ).length > 0 ? (
             <ul className="px-4">
-              {appointments.map((appointment, index) => (
-                <Button key={index} className="mb-2">
-                  {new Date(
-                    appointment.appointment_date_time.seconds * 1000
-                  ).toLocaleDateString()}{" "}
-                  -{" "}
-                  {new Date(
-                    appointment.appointment_date_time.seconds * 1000
-                  ).toLocaleTimeString([], {
-                    hour: "numeric",
-                    minute: "2-digit",
-                  })}{" "}
-                  with{" Dr. "}
-                  {
-                    providers.find(
-                      (provider) => provider.doctor_id === appointment.doctor_id
-                    )?.first_name
-                  }{" "}
-                  {providers.find(
-                    (provider) => provider.doctor_id === appointment.doctor_id
-                  )?.last_name || "Unknown Provider"}
-                </Button>
-              ))}
+              {appointments
+                .filter((appointment) => appointment.status === "planned")
+                .map((appointment, index) => (
+                  <div
+                    key={index}
+                    className="mb-4 p-6 border-2 border-black rounded-lg shadow-md bg-gray-100"
+                  >
+                    <p className="text-lg font-bold text-black">
+                      {new Date(
+                        appointment.appointment_date_time.seconds * 1000
+                      ).toLocaleDateString()}{" "}
+                      -{" "}
+                      {new Date(
+                        appointment.appointment_date_time.seconds * 1000
+                      ).toLocaleTimeString([], {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    <p className="text-sm text-gray-800">
+                      with Dr.{" "}
+                      {
+                        providers.find(
+                          (provider) =>
+                            provider.doctor_id === appointment.doctor_id
+                        )?.first_name
+                      }{" "}
+                      {providers.find(
+                        (provider) =>
+                          provider.doctor_id === appointment.doctor_id
+                      )?.last_name || "Unknown Provider"}
+                    </p>
+                    <Button
+                      className="mt-4 px-4 py-2 bg-indigo-950 text-white rounded hover:bg-gray-800"
+                      onPress={async () => {
+                        try {
+                          // Fetch the encryption key from Firestore
+                          const keyDocRef = doc(
+                            db,
+                            "encryptionKey",
+                            "9Qy70YeM1e66czakvXGr"
+                          );
+                          const keyDoc = await getDoc(keyDocRef);
+
+                          if (!keyDoc.exists()) {
+                            console.error(
+                              "Encryption key document does not exist."
+                            );
+                            return;
+                          }
+
+                          const encryptionKey = keyDoc.data().key;
+
+                          // Encrypt the appointment object
+                          const encryptedAppointment = CryptoJS.AES.encrypt(
+                            JSON.stringify(appointment),
+                            encryptionKey
+                          ).toString();
+
+                          // Set the encrypted appointment in a secure cookie
+                          const expiryDate = new Date();
+                          expiryDate.setMinutes(expiryDate.getMinutes() + 30); // Cookie expires in 30 minutes
+                          document.cookie = `appointment=${encryptedAppointment}; path=/; secure; SameSite=Strict; expires=${expiryDate.toUTCString()}`;
+                        } catch (error) {
+                          console.error(
+                            "Error setting appointment cookie:",
+                            error
+                          );
+                        }
+                        // Navigate to the manageAppointments page
+                        router.push("/manageAppointments");
+                      }}
+                    >
+                      Manage appointment
+                    </Button>
+                  </div>
+                ))}
             </ul>
           ) : (
-            <p className="text-center">No appointments found.</p>
+            <p className="text-center">No appointments scheduled!</p>
           )}
         </div>
+
+        {/* Divider */}
+        <hr className="my-6 border-gray-300" />
 
         {/* Providers */}
         <div>
@@ -227,7 +309,7 @@ export default function AppointmentsPage() {
             <ul className="px-4">
               {providers.map((provider, index) => (
                 <li key={index} className="mb-2">
-                  <Button>
+                  <Button className="bg-indigo-950 text-white">
                     Dr. {provider.first_name} {provider.last_name} -{" "}
                     {provider.specialization}
                   </Button>
@@ -238,6 +320,18 @@ export default function AppointmentsPage() {
             <p className="text-center">No providers found.</p>
           )}
         </div>
+
+        {/* Divider */}
+        <hr className="my-6 border-gray-300" />
+
+        {/* Find a Provider */}
+        <Link
+          className="mt-6 text-center text-xl p-2"
+          href="/providerSearch"
+          showAnchorIcon
+        >
+          Find a Provider
+        </Link>
       </div>
     </>
   );
