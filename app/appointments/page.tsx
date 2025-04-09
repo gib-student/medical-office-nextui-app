@@ -248,7 +248,44 @@ export default function AppointmentsPage() {
                     </p>
                     <Button
                       className="mt-4 px-4 py-2 bg-indigo-950 text-white rounded hover:bg-gray-800"
-                      onPress={() => router.push("/manageAppointments")}
+                      onPress={async () => {
+                        try {
+                          // Fetch the encryption key from Firestore
+                          const keyDocRef = doc(
+                            db,
+                            "encryptionKey",
+                            "9Qy70YeM1e66czakvXGr"
+                          );
+                          const keyDoc = await getDoc(keyDocRef);
+
+                          if (!keyDoc.exists()) {
+                            console.error(
+                              "Encryption key document does not exist."
+                            );
+                            return;
+                          }
+
+                          const encryptionKey = keyDoc.data().key;
+
+                          // Encrypt the appointment object
+                          const encryptedAppointment = CryptoJS.AES.encrypt(
+                            JSON.stringify(appointment),
+                            encryptionKey
+                          ).toString();
+
+                          // Set the encrypted appointment in a secure cookie
+                          const expiryDate = new Date();
+                          expiryDate.setMinutes(expiryDate.getMinutes() + 30); // Cookie expires in 30 minutes
+                          document.cookie = `appointment=${encryptedAppointment}; path=/; secure; SameSite=Strict; expires=${expiryDate.toUTCString()}`;
+                        } catch (error) {
+                          console.error(
+                            "Error setting appointment cookie:",
+                            error
+                          );
+                        }
+                        // Navigate to the manageAppointments page
+                        router.push("/manageAppointments");
+                      }}
                     >
                       Manage appointment
                     </Button>
