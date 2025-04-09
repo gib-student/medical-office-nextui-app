@@ -3,10 +3,19 @@
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
 import { db } from "@/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 
 export default function ManageAppointmentsPage() {
   const [appointment, setAppointment] = useState(null);
+  const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -41,6 +50,22 @@ export default function ManageAppointmentsPage() {
 
         console.log("Decrypted appointment:", decryptedAppointment);
         setAppointment(decryptedAppointment);
+
+        // Fetch the doctor's details
+        const doctorsRef = collection(db, "doctors");
+        const doctorQuery = query(
+          doctorsRef,
+          where("doctor_id", "==", decryptedAppointment.doctor_id)
+        );
+        const doctorSnapshot = await getDocs(doctorQuery);
+
+        if (!doctorSnapshot.empty) {
+          const doctorData = doctorSnapshot.docs[0].data();
+          console.log("Doctor data:", doctorData);
+          setDoctor(doctorData);
+        } else {
+          console.error("Doctor not found.");
+        }
       } catch (error) {
         console.error("Error fetching appointment:", error);
       }
@@ -49,16 +74,86 @@ export default function ManageAppointmentsPage() {
     fetchAppointment();
   }, []);
 
+  const handleCancelAppointment = async () => {
+    if (!appointment || !appointment.appointment_id) {
+      console.error("No appointment to cancel.");
+      return;
+    }
+
+    // Ask for confirmation
+    const confirmDelete = window.confirm(
+      "Are you sure you want to cancel this appointment? This action cannot be undone."
+    );
+
+    if (!confirmDelete) {
+      return; // Exit if the user cancels
+    }
+
+    try {
+      // Reference the appointment document in Firestore
+      const appointmentDocRef = doc(
+        db,
+        "appointments",
+        appointment.appointment_id
+      );
+
+      // Delete the document
+      await deleteDoc(appointmentDocRef);
+
+      console.log("Appointment canceled successfully.");
+      alert("Appointment has been canceled.");
+      setAppointment(null); // Clear the appointment from state
+    } catch (error) {
+      console.error("Error canceling appointment:", error);
+      alert("Failed to cancel the appointment. Please try again.");
+    }
+  };
+
   if (!appointment) {
     return <p>Loading appointment details...</p>;
   }
 
   return (
-    <div>
-      <h1>Manage Appointment</h1>
-      {/* <p>Appointment ID: {appointment.id}</p> */}
-      {/* <p>Doctor ID: {appointment.doctor_id}</p> */}
-      {/* Render other appointment details */}
+    <div className="px-4 pb-4">
+      {/* Page Title */}
+      <h1 className="text-3xl font-bold text-center pb-6">
+        Manage Appointment
+      </h1>
+
+      {/* Appointment Details */}
+      <div className="p-6 border-2 border-black rounded-lg shadow-md bg-gray-100">
+        <p className="text-lg font-bold text-black">
+          {new Date(
+            appointment.appointment_date_time.seconds * 1000
+          ).toLocaleDateString()}{" "}
+          at{" "}
+          {new Date(
+            appointment.appointment_date_time.seconds * 1000
+          ).toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+          })}
+        </p>
+        <p className="text-lg text-gray-800">
+          Doctor:{" "}
+          {doctor
+            ? `${doctor.first_name} ${doctor.last_name}`
+            : "Doctor information not available"}
+        </p>
+        <p className="text-lg text-gray-800">
+          Reason for Visit: {appointment.reason_for_visit || "Not specified"}
+        </p>
+      </div>
+
+      {/* Cancel Appointment Button */}
+      <div className="mt-6 text-center">
+        <button
+          className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          onClick={handleCancelAppointment}
+        >
+          Cancel Appointment
+        </button>
+      </div>
     </div>
   );
 }
