@@ -309,7 +309,44 @@ export default function AppointmentsPage() {
             <ul className="px-4">
               {providers.map((provider, index) => (
                 <li key={index} className="mb-2">
-                  <Button className="bg-indigo-950 text-white">
+                  <Button
+                    className="bg-indigo-950 text-white"
+                    onPress={async () => {
+                      try {
+                        // Fetch the encryption key from Firestore
+                        const keyDocRef = doc(
+                          db,
+                          "encryptionKey",
+                          "9Qy70YeM1e66czakvXGr"
+                        );
+                        const keyDoc = await getDoc(keyDocRef);
+
+                        if (!keyDoc.exists()) {
+                          console.error(
+                            "Encryption key document does not exist."
+                          );
+                          return;
+                        }
+
+                        const encryptionKey = keyDoc.data().key;
+
+                        // Encrypt the provider object
+                        const encryptedProvider = CryptoJS.AES.encrypt(
+                          JSON.stringify(provider),
+                          encryptionKey
+                        ).toString();
+
+                        // Set the encrypted provider in a secure cookie
+                        const expiryDate = new Date();
+                        expiryDate.setMinutes(expiryDate.getMinutes() + 30); // Cookie expires in 30 minutes
+                        document.cookie = `provider=${encryptedProvider}; path=/; secure; SameSite=Strict; expires=${expiryDate.toUTCString()}`;
+                      } catch (error) {
+                        console.error("Error setting provider cookie:", error);
+                      }
+                      // Navigate to the scheduleAppointment page
+                      router.push("/scheduleAppointment");
+                    }}
+                  >
                     Dr. {provider.first_name} {provider.last_name} -{" "}
                     {provider.specialization}
                   </Button>

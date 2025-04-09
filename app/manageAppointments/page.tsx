@@ -12,10 +12,12 @@ import {
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export default function ManageAppointmentsPage() {
   const [appointment, setAppointment] = useState(null);
   const [doctor, setDoctor] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -103,6 +105,13 @@ export default function ManageAppointmentsPage() {
       console.log("Appointment canceled successfully.");
       alert("Appointment has been canceled.");
       setAppointment(null); // Clear the appointment from state
+
+      // Delete the secure cookie containing the appointment info
+      document.cookie =
+        "appointment=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; SameSite=Strict";
+
+      // Redirect to the appointments page
+      router.push("/appointments");
     } catch (error) {
       console.error("Error canceling appointment:", error);
       alert("Failed to cancel the appointment. Please try again.");
