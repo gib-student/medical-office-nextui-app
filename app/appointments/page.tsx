@@ -2,7 +2,14 @@
 import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
 import { db } from "@/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore"; // Add these imports
 import { Button } from "@heroui/button";
 
 export default function AppointmentsPage() {
@@ -21,7 +28,20 @@ export default function AppointmentsPage() {
         ?.split("=")[1];
 
       if (encryptedUser) {
-        const bytes = CryptoJS.AES.decrypt(encryptedUser, "CSE499B");
+        // Fetch the encryption key from Firestore
+        const keyDocRef = doc(db, "encryptionKey", "9Qy70YeM1e66czakvXGr");
+        const keyDoc = await getDoc(keyDocRef);
+
+        if (!keyDoc.exists()) {
+          console.error("Encryption key document does not exist.");
+          setPatient(null);
+          return null;
+        }
+
+        const encryptionKey = keyDoc.data().key;
+
+        // Decrypt the user data
+        const bytes = CryptoJS.AES.decrypt(encryptedUser, encryptionKey);
         const decryptedUser = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         console.log("Decrypted user data:", decryptedUser);
 
