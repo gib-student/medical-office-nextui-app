@@ -46,15 +46,15 @@ export default function AppointmentsPage() {
         // Decrypt the user data
         const bytes = CryptoJS.AES.decrypt(encryptedUser, encryptionKey);
         const decryptedUser = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        console.log("Decrypted user data:", decryptedUser);
+        // console.log("Decrypted user data:", decryptedUser);
 
         if (!decryptedUser || !decryptedUser.uid) {
-          console.log("Invalid user data.");
+          // console.log("Invalid user data.");
           setPatient(null);
           return null;
         }
 
-        console.log("User data found in local storage:", decryptedUser);
+        // console.log("User data found in local storage:", decryptedUser);
 
         // Fetch patient data
         const patientsRef = collection(db, "patients");
@@ -66,16 +66,16 @@ export default function AppointmentsPage() {
 
         if (!patientSnapshot.empty) {
           const patientData = patientSnapshot.docs[0].data();
-          console.log("Patient data found:", patientData);
+          // console.log("Patient data found:", patientData);
           setPatient(patientData);
         } else {
-          console.log("No patient data found for the user.");
+          // console.log("No patient data found for the user.");
           setPatient(null);
         }
 
         return decryptedUser;
       } else {
-        console.log("No user found.");
+        // console.log("No user found.");
         setPatient(null);
         return null;
       }
@@ -122,14 +122,14 @@ export default function AppointmentsPage() {
   async function checkUserProvider() {
     try {
       if (!patient) {
-        console.log("No valid patient data available.");
+        // console.log("No valid patient data available.");
         setProviders([]);
         return;
       }
 
       const doctorIds = patient.providers || [];
       if (doctorIds.length === 0) {
-        console.log("No providers found for this patient.");
+        // console.log("No providers found for this patient.");
         setProviders([]);
         return;
       }
@@ -143,10 +143,10 @@ export default function AppointmentsPage() {
 
       if (!doctorSnapshot.empty) {
         const providers = doctorSnapshot.docs.map((doc) => doc.data());
-        console.log("Providers found:", providers);
+        // console.log("Providers found:", providers);
         setProviders(providers);
       } else {
-        console.log("No matching providers found in the doctors collection.");
+        // console.log("No matching providers found in the doctors collection.");
         setProviders([]);
       }
     } catch (error) {
@@ -192,7 +192,7 @@ export default function AppointmentsPage() {
 
   // Function to handle appointment scheduling
   const handleScheduleAppointment = (providerId: string) => {
-    console.log("Scheduling appointment with provider ID:", providerId);
+    // console.log("Scheduling appointment with provider ID:", providerId);
     // Go to scheduling appointment page
   };
 
@@ -201,6 +201,11 @@ export default function AppointmentsPage() {
       <h1 className="text-3xl font-bold text-center pb-6">
         MyChart Appointments
       </h1>
+      {patient && (
+        <h2 className="text-xl text-center text-gray-700 pb-4">
+          Welcome, {patient.first_name}
+        </h2>
+      )}
 
       {/* Body */}
       <div className="px-4 pb-4">
