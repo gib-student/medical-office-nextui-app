@@ -12,7 +12,7 @@ import {
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function ManageAppointmentsPage() {
   const [appointment, setAppointment] = useState(null);
@@ -20,6 +20,14 @@ export default function ManageAppointmentsPage() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!router) {
+      console.error("Router is not available.");
+      return;
+    }
+
+    // Your client-side logic here
+    console.log("Router is available:", router);
+
     const fetchAppointment = async () => {
       try {
         // Fetch the encrypted appointment from the cookie
@@ -74,7 +82,7 @@ export default function ManageAppointmentsPage() {
     };
 
     fetchAppointment();
-  }, []);
+  }, [router]);
 
   const handleCancelAppointment = async () => {
     if (!appointment || !appointment.appointment_id) {
