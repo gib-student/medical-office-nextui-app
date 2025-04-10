@@ -14,9 +14,27 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
+// Define the doctor's data structure
+interface Doctor {
+  first_name: string;
+  last_name: string;
+  doctor_id: string; // Add other fields based on your Firestore schema
+}
+
+// Define the appointment's data structure
+interface Appointment {
+  appointment_id: string;
+  appointment_date_time: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  doctor_id: string;
+  reason_for_visit?: string;
+}
+
 export default function ManageAppointmentsPage() {
-  const [appointment, setAppointment] = useState(null);
-  const [doctor, setDoctor] = useState(null);
+  const [appointment, setAppointment] = useState<Appointment | null>(null); // Explicitly type the state
+  const [doctor, setDoctor] = useState<Doctor | null>(null); // Explicitly type the state
   const router = useRouter();
 
   useEffect(() => {
@@ -24,9 +42,6 @@ export default function ManageAppointmentsPage() {
       console.error("Router is not available.");
       return;
     }
-
-    // Your client-side logic here
-    console.log("Router is available:", router);
 
     const fetchAppointment = async () => {
       try {
@@ -50,11 +65,16 @@ export default function ManageAppointmentsPage() {
           return;
         }
 
-        const encryptionKey = keyDoc.data().key;
+        const encryptionKey = keyDoc.data()?.key;
+
+        if (!encryptionKey) {
+          console.error("Encryption key is missing.");
+          return;
+        }
 
         // Decrypt the appointment object
         const bytes = CryptoJS.AES.decrypt(encryptedAppointment, encryptionKey);
-        const decryptedAppointment = JSON.parse(
+        const decryptedAppointment: Appointment = JSON.parse(
           bytes.toString(CryptoJS.enc.Utf8)
         );
 
@@ -70,7 +90,7 @@ export default function ManageAppointmentsPage() {
         const doctorSnapshot = await getDocs(doctorQuery);
 
         if (!doctorSnapshot.empty) {
-          const doctorData = doctorSnapshot.docs[0].data();
+          const doctorData = doctorSnapshot.docs[0].data() as Doctor; // Type assertion
           console.log("Doctor data:", doctorData);
           setDoctor(doctorData);
         } else {

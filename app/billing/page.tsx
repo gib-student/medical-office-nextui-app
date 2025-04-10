@@ -5,8 +5,16 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import { Button } from "@heroui/button";
 
+// Define the type for a bill
+interface Bill {
+  id: string;
+  amount: number;
+  due_date: string;
+  [key: string]: any; // To allow additional fields if needed
+}
+
 export default function BillingPage() {
-  const [bills, setBills] = useState([]);
+  const [bills, setBills] = useState<Bill[]>([]); // Explicitly define the type of bills
 
   useEffect(() => {
     const fetchBills = async () => {
@@ -17,11 +25,11 @@ export default function BillingPage() {
           where("payment_status", "==", "pending")
         );
         const querySnapshot = await getDocs(q);
-        const billsData = querySnapshot.docs.map((doc) => {
+        const billsData: Bill[] = querySnapshot.docs.map((doc) => {
           const data = doc.data();
           return {
             id: doc.id,
-            ...data,
+            amount: data.amount || 0, // Ensure 'amount' is included and defaults to 0 if missing
             due_date: data.due_date?.toDate().toLocaleDateString(), // Convert Firestore timestamp to a readable date
           };
         });
@@ -49,16 +57,7 @@ export default function BillingPage() {
                 Amount Owed: ${bill.amount}
               </h2>
               <p>Due Date: {bill.due_date}</p>
-              <Button
-                className="bg-primary mt-2 text-white"
-                // style={{
-                //   backgroundColor: "blue",
-                //   color: "white",
-                //   marginTop: "10px",
-                // }}
-              >
-                Pay Bill
-              </Button>
+              <Button className="bg-primary mt-2 text-white">Pay Bill </Button>
             </div>
           ))
         ) : (
