@@ -1,7 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { db } from "@/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { Input } from "@heroui/input";
 import {
   Dropdown,
@@ -10,6 +19,9 @@ import {
   DropdownItem,
 } from "@heroui/dropdown";
 import { Button } from "@heroui/button";
+import { useRouter } from "next/navigation";
+import CryptoJS from "crypto-js";
+import Cookies from "js-cookie";
 
 export default function ProviderSearchPage() {
   const [doctorName, setDoctorName] = useState("");
@@ -37,33 +49,27 @@ export default function ProviderSearchPage() {
     "Gastroenterology",
   ]);
   const [doctors, setDoctors] = useState([]);
+  const router = useRouter();
 
   const searchDoctors = async () => {
     try {
-      console.log("Search button pressed"); // Debugging log
+      console.log("Search button pressed");
       const doctorsRef = collection(db, "doctors");
-      const allDocsSnapshot = await getDocs(doctorsRef);
       let doctorList = [];
 
-      // Apply filters based on user input
       if (doctorName) {
-        console.log(`Filtering by doctor name: ${doctorName}`); // Debugging log
-
-        // Query for first_name
         const firstNameQuery = query(
           doctorsRef,
           where("first_name", "==", doctorName)
         );
         const firstNameSnapshot = await getDocs(firstNameQuery);
 
-        // Query for last_name
         const lastNameQuery = query(
           doctorsRef,
           where("last_name", "==", doctorName)
         );
         const lastNameSnapshot = await getDocs(lastNameQuery);
 
-        // Combine results from both queries
         doctorList = [
           ...firstNameSnapshot.docs.map((doc) => doc.data()),
           ...lastNameSnapshot.docs.map((doc) => doc.data()),
@@ -71,15 +77,11 @@ export default function ProviderSearchPage() {
       }
 
       if (specialization) {
-        console.log(`Filtering by specialization: ${specialization}`); // Debugging log
-
-        // Filter the combined list by specialization
         doctorList = doctorList.filter(
           (doctor) => doctor.specialization === specialization
         );
       }
 
-      // Ensure valid data and combine first_name and last_name into a single name field
       doctorList = doctorList
         .filter(
           (doctor) =>
@@ -87,13 +89,87 @@ export default function ProviderSearchPage() {
         )
         .map((doctor) => ({
           ...doctor,
-          name: `${doctor.first_name} ${doctor.last_name}`, // Combine first_name and last_name
+          name: `${doctor.first_name} ${doctor.last_name}`,
         }));
 
-      console.log("Doctors found:", doctorList); // Debugging log
-      setDoctors(doctorList); // Update the state with the filtered doctors
+      setDoctors(doctorList);
     } catch (error) {
       console.error("Error fetching doctors:", error);
+    }
+  };
+
+  const handleSelectDoctor = async (doctor) => {
+    try {
+      // Fetch the encryption key from Firestore
+      const keyDocRef = doc(db, "encryptionKey", "9Qy70YeM1e66czakvXGr");
+      const keyDoc = await getDoc(keyDocRef);
+
+      if (!keyDoc.exists()) {
+        throw new Error("Encryption key document does not exist.");
+      }
+
+      const encryptionKey = keyDoc.data().key;
+
+      // Decrypt the "user" secure cookie to get the uid
+      const encryptedUser = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user="))
+        ?.split("=")[1];
+
+      if (!encryptedUser) {
+        throw new Error("User cookie not found.");
+      }
+
+      const decryptedUser = JSON.parse(
+        CryptoJS.AES.decrypt(encryptedUser, encryptionKey).toString(
+          CryptoJS.enc.Utf8
+        )
+      );
+
+      const uid = decryptedUser.uid;
+      if (!uid) {
+        throw new Error("UID not found in decrypted user data.");
+      }
+
+      // Query the "patients" collection to find the patient document with the matching uid
+      const patientsRef = collection(db, "patients");
+      const patientQuery = query(patientsRef, where("uid", "==", uid));
+      const patientSnapshot = await getDocs(patientQuery);
+
+      if (patientSnapshot.empty) {
+        throw new Error("No patient document found for the given UID.");
+      }
+
+      // Get the patient_id from the matching document
+      const patientDoc = patientSnapshot.docs[0];
+      const patientId = patientDoc.data().patient_id;
+
+      if (!patientId) {
+        throw new Error("Patient ID not found in the patient document.");
+      }
+
+      // Add the doctor's doctor_id to the patient's providers array
+      const patientDocRef = doc(db, "patients", patientId);
+      await updateDoc(patientDocRef, {
+        providers: arrayUnion(doctor.doctor_id),
+      });
+
+      // Encrypt the provider object
+      const encryptedProvider = CryptoJS.AES.encrypt(
+        JSON.stringify(doctor),
+        encryptionKey
+      ).toString();
+
+      // Set the encrypted provider as a secure cookie
+      const expiryDate = new Date();
+      expiryDate.setMinutes(expiryDate.getMinutes() + 30);
+
+      document.cookie = `provider=${encryptedProvider}; path=/; secure; SameSite=Strict; expires=${expiryDate.toUTCString()}`;
+
+      // Navigate to the scheduleAppointment page
+      router.push("/scheduleAppointment");
+    } catch (error) {
+      console.error("Error handling doctor selection:", error);
     }
   };
 
@@ -103,8 +179,6 @@ export default function ProviderSearchPage() {
 
   return (
     <div style={{ paddingLeft: "20px" }}>
-      {" "}
-      {/* Add padding to the left */}
       <h1 className="text-3xl font-bold text-center mb-5">
         Search for Providers
       </h1>
@@ -135,11 +209,7 @@ export default function ProviderSearchPage() {
         </Dropdown>
       </div>
       <div className="mb-4">
-        <Button
-          variant="solid"
-          color="primary"
-          onPress={searchDoctors} // Use `onPress` for HeroUI buttons
-        >
+        <Button variant="solid" color="primary" onPress={searchDoctors}>
           Search
         </Button>
       </div>
@@ -149,7 +219,13 @@ export default function ProviderSearchPage() {
           <ul>
             {doctors.map((doctor, index) => (
               <li key={index} className="mb-2">
-                {doctor.name} - {doctor.specialization}
+                <Button
+                  className="bg-indigo-950 text-white"
+                  variant="solid"
+                  onPress={() => handleSelectDoctor(doctor)}
+                >
+                  {doctor.name} - {doctor.specialization}
+                </Button>
               </li>
             ))}
           </ul>
