@@ -13,8 +13,8 @@ import { Button } from "@heroui/button";
 
 export default function ProviderSearchPage() {
   const [doctorName, setDoctorName] = useState("");
-  const [specialty, setSpecialty] = useState("");
-  const [specialties] = useState([
+  const [specialization, setSpecialization] = useState("");
+  const [specializations] = useState([
     "Family Medicine",
     "Urology",
     "Pulmonology",
@@ -43,9 +43,6 @@ export default function ProviderSearchPage() {
       console.log("Search button pressed"); // Debugging log
       const doctorsRef = collection(db, "doctors");
       const allDocsSnapshot = await getDocs(doctorsRef);
-      // allDocsSnapshot.forEach((doc) => {
-      //   console.log("Document data:", doc.data()); // Log each document's data
-      // });
       let doctorList = [];
 
       // Apply filters based on user input
@@ -73,19 +70,20 @@ export default function ProviderSearchPage() {
         ];
       }
 
-      if (specialty) {
-        console.log(`Filtering by specialty: ${specialty}`); // Debugging log
+      if (specialization) {
+        console.log(`Filtering by specialization: ${specialization}`); // Debugging log
 
-        // Filter the combined list by specialty
+        // Filter the combined list by specialization
         doctorList = doctorList.filter(
-          (doctor) => doctor.specialty === specialty
+          (doctor) => doctor.specialization === specialization
         );
       }
 
       // Ensure valid data and combine first_name and last_name into a single name field
       doctorList = doctorList
         .filter(
-          (doctor) => doctor.first_name && doctor.last_name && doctor.specialty
+          (doctor) =>
+            doctor.first_name && doctor.last_name && doctor.specialization
         )
         .map((doctor) => ({
           ...doctor,
@@ -100,7 +98,6 @@ export default function ProviderSearchPage() {
   };
 
   useEffect(() => {
-    // Optionally, fetch all doctors on initial load
     searchDoctors();
   }, []);
 
@@ -123,16 +120,16 @@ export default function ProviderSearchPage() {
         <Dropdown portal="true" placement="bottom">
           <DropdownTrigger>
             <Button variant="bordered">
-              {specialty || "Select a Specialty"}
+              {specialization || "Select a Specialization"}
             </Button>
           </DropdownTrigger>
           <DropdownMenu
-            aria-label="Specialty Selection"
-            onAction={(key) => setSpecialty(key)}
+            aria-label="Specialization Selection"
+            onAction={(key) => setSpecialization(key)}
             style={{ maxHeight: "200px", overflowY: "auto" }}
           >
-            {specialties.map((specialty) => (
-              <DropdownItem key={specialty}>{specialty}</DropdownItem>
+            {specializations.map((specialization) => (
+              <DropdownItem key={specialization}>{specialization}</DropdownItem>
             ))}
           </DropdownMenu>
         </Dropdown>
@@ -152,7 +149,7 @@ export default function ProviderSearchPage() {
           <ul>
             {doctors.map((doctor, index) => (
               <li key={index} className="mb-2">
-                {doctor.name} - {doctor.specialty}
+                {doctor.name} - {doctor.specialization}
               </li>
             ))}
           </ul>
