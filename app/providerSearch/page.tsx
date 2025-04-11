@@ -77,9 +77,20 @@ export default function ProviderSearchPage() {
       }
 
       if (specialization) {
-        doctorList = doctorList.filter(
-          (doctor) => doctor.specialization === specialization
-        );
+        if (doctorList.length > 0) {
+          // Filter existing results by specialization
+          doctorList = doctorList.filter(
+            (doctor) => doctor.specialization === specialization
+          );
+        } else {
+          // Query directly by specialization if no name is provided
+          const specializationQuery = query(
+            doctorsRef,
+            where("specialization", "==", specialization)
+          );
+          const specializationSnapshot = await getDocs(specializationQuery);
+          doctorList = specializationSnapshot.docs.map((doc) => doc.data());
+        }
       }
 
       doctorList = doctorList

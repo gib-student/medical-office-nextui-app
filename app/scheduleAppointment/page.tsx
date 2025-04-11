@@ -18,6 +18,7 @@ import {
   getDocs,
   addDoc,
   Timestamp,
+  updateDoc, // Add this import
 } from "firebase/firestore";
 import { today, getLocalTimeZone, isWeekend } from "@internationalized/date";
 import { v4 as uuidv4 } from "uuid";
@@ -140,13 +141,11 @@ export default function ScheduleAppointmentsPage() {
     );
 
     const timestamp = Timestamp.fromDate(selectedDateObj);
-    const appointmentId = uuidv4();
 
     try {
       const appointmentsRef = collection(db, "appointments");
 
-      await addDoc(appointmentsRef, {
-        appointment_id: appointmentId,
+      const docRef = await addDoc(appointmentsRef, {
         doctor_id: provider.doctor_id,
         patient_id: patient.patient_id,
         appointment_date_time: timestamp,
@@ -154,6 +153,9 @@ export default function ScheduleAppointmentsPage() {
         created_at: Timestamp.now(),
         status: "planned",
       });
+
+      // Use updateDoc to update the document with the appointment_id
+      await updateDoc(docRef, { appointment_id: docRef.id });
 
       alert("Appointment successfully created!");
       router.push("/appointments");
